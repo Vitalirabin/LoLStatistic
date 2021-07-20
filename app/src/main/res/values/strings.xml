@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">LoLStatistic</string>
+    <string name="show_statistic">Показать статистику</string>
+    <string name="info_on_enter">Для просмотра статистики выберите сервер и введите имя игрового аккаунта.</string>
+    <string name="enter_name">Введите имя</string>
+    <string name="all_match">Общее количество игр:</string>
+    <string name="win_match">Количество выигрышей:</string>
+    <string name="lose_match">Количество проигрышей:</string>
+    <string name="go_to_enter_fragment">Выйти в начало</string>
+</resources>

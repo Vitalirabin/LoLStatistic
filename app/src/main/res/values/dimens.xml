@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_width">250dp</dimen>
+    <dimen name="button_height">42dp</dimen>
+
+    <dimen name="enter_button_text_size">13sp</dimen>
+    <dimen name="info_text_size">15sp</dimen>
+    <dimen name="text_size_header_1">10sp</dimen>
+    <dimen name="text_size_all_review">8sp</dimen>
+    <dimen name="text_size_label">11sp</dimen>
+    <dimen name="text_size_footer">10sp</dimen>
+    <dimen name="server_text_size">20sp</dimen>
+
+    <dimen name="button_border_radius">6dp</dimen>
+    <dimen name="image_border_radius">6dp</dimen>
+    <dimen name="search_line_width">327dp</dimen>
+    <dimen name="suggest_partner_line_width">323dp</dimen>
+    <dimen name="search_line_height">26dp</dimen>
+    <dimen name="shop_category_line_height">36dp</dimen>
+</resources>
