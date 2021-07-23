@@ -1,9 +1,10 @@
 package com.example.lolstatistic.network
 
 import android.util.Log
-import androidx.databinding.library.BuildConfig
+import com.example.lolstatistic.statistic.StatisticRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -12,6 +13,13 @@ import retrofit2.create
 object ApiFactory {
     private val BASE_URL = "https://ru.api.riotgames.com"
     private var retrofit: Retrofit? = null
+
+    val networkModule = module {
+        single { getApi() }
+        single { StatisticRepository(get()) }
+    }
+
+
     fun getApi(): RemoteApi {
         return getClient(BASE_URL).create<RemoteApi>()
     }

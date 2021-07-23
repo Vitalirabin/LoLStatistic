@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     // Apply the Crashlytics Gradle plugin
     id 'com.google.firebase.crashlytics'
+
 }
 
 android {
@@ -68,7 +69,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation platform('com.google.firebase:firebase-bom:28.2.1')
 
-    implementation'androidx.fragment:fragment-ktx:1.3.5'
+    implementation 'androidx.fragment:fragment-ktx:1.3.5'
     implementation "androidx.arch.core:core-testing:2.1.0"
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -85,4 +86,12 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+
+    // Koin for Android
+    implementation "org.koin:koin-android:2.0.1"
+// Koin Android Scope features
+    implementation "org.koin:koin-android-scope:.2.0.1"
+    implementation "org.koin:koin-android-viewmodel:2.0.1"
+
 }

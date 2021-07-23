@@ -1,5 +1,6 @@
 package com.example.lolstatistic.statistic
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,10 +17,11 @@ import com.example.lolstatistic.match.MatchViewModel
 import com.example.lolstatistic.match.MatchViewModelFactory
 import kotlinx.android.synthetic.main.fragment_statistics.*
 
+
 class StatisticFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_statistics
     private val sfactory = StatisticViewModelFactory()
-    private val statisticViewModel: StatisticViewModel by viewModels { sfactory }
+    val statisticViewModel: StatisticViewModel by viewModels { sfactory }
     private val afactory = AccountViewModelFactory()
     private val accountViewModel: AccountViewModel by viewModels { afactory }
     private val mfactory = MatchViewModelFactory()
