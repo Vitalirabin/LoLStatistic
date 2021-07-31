@@ -12,9 +12,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class StatisticViewModel : ViewModel() {
+class StatisticViewModel( val statisticRepository:StatisticRepository) : ViewModel() {
     var statisticModel = MutableLiveData<List<String>?>()
-    val statisticRepository = StatisticRepository(ApiFactory.getApi())
     fun loadMatchId(accountId:String) {
         Log.e("StatisticViewModel","loadPuuid")
         viewModelScope.launch {Log.e("StatisticViewModel","coroutine")

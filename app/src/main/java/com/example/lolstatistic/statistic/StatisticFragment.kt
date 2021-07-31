@@ -17,23 +17,21 @@ import com.example.lolstatistic.match.MatchViewModel
 import com.example.lolstatistic.match.MatchViewModelFactory
 import kotlinx.android.synthetic.main.fragment_statistics.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.context.GlobalContext.get
-import org.koin.dsl.module
-import java.lang.reflect.Array.get
 
 
 class StatisticFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_statistics
-    private val sfactory = StatisticViewModelFactory()
-    val statisticViewModel: StatisticViewModel by viewModels { sfactory }
+
+    private val statisticViewModel: StatisticViewModel by viewModel()
+
     private val afactory = AccountViewModelFactory()
     private val accountViewModel: AccountViewModel by viewModels { afactory }
+
     private val mfactory = MatchViewModelFactory()
     private val matchViewModel: MatchViewModel by viewModels { mfactory }
-    var matches = MatchesModel()
-    val viewmodelModule = module {
-        viewModel { (StatisticViewModel.get()) }
-    }
+
+   private var matches = MatchesModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

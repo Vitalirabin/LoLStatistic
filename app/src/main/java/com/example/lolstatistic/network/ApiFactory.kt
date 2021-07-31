@@ -14,10 +14,7 @@ object ApiFactory {
     private val BASE_URL = "https://ru.api.riotgames.com"
     private var retrofit: Retrofit? = null
 
-    val networkModule = module {
-        single { getApi() }
-        single { StatisticRepository(get()) }
-    }
+
 
 
     fun getApi(): RemoteApi {
