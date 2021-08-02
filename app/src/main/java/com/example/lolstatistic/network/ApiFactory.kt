@@ -1,10 +1,8 @@
 package com.example.lolstatistic.network
 
 import android.util.Log
-import com.example.lolstatistic.statistic.StatisticRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create

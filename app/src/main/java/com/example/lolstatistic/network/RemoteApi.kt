@@ -44,7 +44,7 @@ interface RemoteApi {
 
 
     @GET("/lol/match/v4/matchlists/by-account/{accountId}")
-    suspend fun getMatchIdList(accountId: String): List<String>
+    suspend fun getMatchListByPuuid(accountId: String): List<String>
 
     @GET("/lol/match/v5/matches/{matchId}")
     suspend fun getMatch(matchId: String): MatchModel
