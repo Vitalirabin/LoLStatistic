@@ -5,9 +5,7 @@ import com.example.lolstatistic.network.ApiFactory
 import com.example.lolstatistic.network.ApiResponse
 import com.example.lolstatistic.network.RemoteApi
 
-class MatchRepository(
-    var api: RemoteApi
-) {
+class MatchRepository(var api: RemoteApi) {
     suspend fun getMatchListByPuuid(puuid: String): ApiResponse<List<String>> {
         return try {
             api = ApiFactory.getApi()

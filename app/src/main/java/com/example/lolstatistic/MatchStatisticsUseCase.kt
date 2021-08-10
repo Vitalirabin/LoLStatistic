@@ -4,12 +4,9 @@ import com.example.lolstatistic.account.AccountModel
 import com.example.lolstatistic.account.AccountRepository
 import com.example.lolstatistic.match.MatchModel
 import com.example.lolstatistic.match.MatchRepository
-import com.example.lolstatistic.network.ApiFactory
 import com.example.lolstatistic.statistic.MatchesModel
 
-class MatchStatisticsUseCase(val name: String) {
-    val accountRepository = AccountRepository(ApiFactory.getApi())
-    val matchRepository = MatchRepository(ApiFactory.getApi())
+class MatchStatisticsUseCase(val accountRepository:AccountRepository,val matchRepository:MatchRepository) {
     var accountModel: AccountModel? = null
     var matchList: List<String>? = null
     var match: MatchModel? = null
@@ -27,14 +24,11 @@ class MatchStatisticsUseCase(val name: String) {
         return matchRepository.getMatchByMatchId(matchId).data
     }
 
-    suspend fun getMatchStatistic() {
+    suspend fun getMatchStatistic(name: String) {
         accountModel = loadAccount(name)
         matchList = loadMatchList(accountModel?.puuid.toString())
         matchList?.forEach {
             match = loadMatch(it)
-            if (match?.info?.participants?.forEach {
-                    if ()
-                })
         }
     }
 }

@@ -36,7 +36,7 @@ interface RemoteApi {
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
         "Origin: https://developer.riotgames.com",
-        "X-Riot-Token:RGAPI-6d0eedd5-fcf5-4eca-9e7f-2a34564d7ef5"
+        "X-Riot-Token:RGAPI-84bdb56a-e2ef-473e-a728-ec8a364c54bd"
     )
 
     @GET("/lol/summoner/v4/summoners/by-name/{id}")

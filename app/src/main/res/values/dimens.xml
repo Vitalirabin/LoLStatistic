@@ -17,4 +17,6 @@
     <dimen name="suggest_partner_line_width">323dp</dimen>
     <dimen name="search_line_height">26dp</dimen>
     <dimen name="shop_category_line_height">36dp</dimen>
+
+    <dimen name="spinner_margin_top">50dp</dimen>
 </resources>
