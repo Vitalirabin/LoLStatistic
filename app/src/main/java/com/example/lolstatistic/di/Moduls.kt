@@ -1,5 +1,6 @@
 package com.example.lolstatistic.di
 
+import com.example.lolstatistic.account.AccountViewModel
 import com.example.lolstatistic.match.MatchRepository
 import com.example.lolstatistic.network.ApiFactory
 import com.example.lolstatistic.statistic.StatisticViewModel

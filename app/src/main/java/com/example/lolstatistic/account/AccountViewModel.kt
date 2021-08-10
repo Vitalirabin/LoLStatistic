@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AccountViewModel:ViewModel() {
+class AccountViewModel():ViewModel() {
     val accountRepository = AccountRepository(ApiFactory.getApi())
     val accountModel = MutableLiveData<AccountModel?>()
     fun loadAccount(id:String) {
@@ -17,7 +17,7 @@ class AccountViewModel:ViewModel() {
         viewModelScope.launch {
             Log.e("StatisticViewModel","coroutine")
             accountModel.value = withContext(Dispatchers.IO) {
-                accountRepository.getAllMovieList(id).data
+                accountRepository.getAccount(id).data
             }
         }
     }

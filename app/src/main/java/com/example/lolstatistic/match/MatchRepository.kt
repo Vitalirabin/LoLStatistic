@@ -8,7 +8,7 @@ import com.example.lolstatistic.network.RemoteApi
 class MatchRepository(
     var api: RemoteApi
 ) {
-    suspend fun getMatchList(puuid: String): ApiResponse<List<String>> {
+    suspend fun getMatchListByPuuid(puuid: String): ApiResponse<List<String>> {
         return try {
             api = ApiFactory.getApi()
             val result = api.getMatchListByPuuid(puuid)

@@ -55,21 +55,7 @@ class StatisticFragment : BaseFragment() {
         var k = 0
         val bundle = arguments
         val name = bundle?.getString("tag").toString()
-        accountViewModel.loadAccount(name)
-        statisticViewModel.loadMatchId(accountViewModel.accountModel.value?.puuid.toString())
-        statisticViewModel.statisticModel.value?.forEach {
-            matches.allMatches++
-            matchViewModel.loadMatch(it)
-            matchViewModel.matchModel.value?.metadata?.participants?.forEach {
-                if (it == accountViewModel.accountModel.value?.puuid.toString()) {
-                    k = i
-                }
-                i++
-            }
-            if (matchViewModel.matchModel.value?.info?.participants?.get(k)?.win == true) {
-                matches.winMatches++
-            } else matches.loseMatches++
-        }
+
         Log.e("StatisticFragment", "onClick")
     }
 }

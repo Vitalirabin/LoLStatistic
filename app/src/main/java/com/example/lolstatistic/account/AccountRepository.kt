@@ -9,7 +9,7 @@ import retrofit2.await
 class AccountRepository(
     var api: RemoteApi
 ) {
-    suspend fun getAllMovieList(id:String): ApiResponse<AccountModel> {
+    suspend fun getAccount(id:String): ApiResponse<AccountModel> {
         return try {
             api = ApiFactory.getApi()
             val result = api.getAccount(id)
