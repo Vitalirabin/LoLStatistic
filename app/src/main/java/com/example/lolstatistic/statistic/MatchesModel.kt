@@ -1,7 +1,9 @@
 package com.example.lolstatistic.statistic
 
+import androidx.lifecycle.MutableLiveData
+
 class MatchesModel {
-    var allMatches: Int = 0
-    var winMatches: Int = 0
-    var loseMatches: Int = 0
+    var allMatches = MutableLiveData<Int>()
+    var winMatches = MutableLiveData<Int>()
+    var loseMatches = MutableLiveData<Int>()
 }

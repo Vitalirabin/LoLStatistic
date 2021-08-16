@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import com.example.lolstatistic.BaseFragment
 import com.example.lolstatistic.Constants.USER_NAME_VALUE
