@@ -7,7 +7,7 @@ import com.example.lolstatistic.match.MatchModel
 import com.example.lolstatistic.match.MatchRepository
 import com.example.lolstatistic.statistic.MatchesModel
 
-class MatchStatisticsUseCase(val accountRepository: AccountRepository,val matchRepository:MatchRepository) {
+class MatchStatisticsUseCase(val accountRepository: AccountRepository, val matchRepository: MatchRepository) {
     val accountUseCase = AccountUseCase(accountRepository)
     var accountModel: AccountModel? = null
     var matchList: List<String>? = null
@@ -21,11 +21,16 @@ class MatchStatisticsUseCase(val accountRepository: AccountRepository,val matchR
         return matchRepository.getMatchByMatchId(matchId).data
     }
 
-    suspend fun getMatchStatistic(name: String) {
+    suspend fun getMatchStatistic(name: String):MatchesModel {
         accountModel = accountUseCase.loadAccount(name)
         matchList = loadMatchList(accountModel?.puuid.toString())
         matchList?.forEach {
             match = loadMatch(it)
+            matchesModel.allMatches++
+            if (match?.info?.participants?.get(match?.metadata?.participants?.indexOf(accountModel?.puuid)?:0)?.win==true){
+                matchesModel.winMatches++}
+            else matchesModel.loseMatches++
         }
+        return matchesModel
     }
 }

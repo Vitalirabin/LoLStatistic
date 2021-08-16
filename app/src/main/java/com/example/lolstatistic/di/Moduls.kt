@@ -21,7 +21,7 @@ val accountRepoModule = module(override = true) {
     single { AccountRepository(get()) }
 }
 val statisticViewModule = module(override = true) {
-    viewModel { StatisticViewModel(get(), get()) }
+    viewModel { StatisticViewModel(get()) }
 }
 val accountViewModule = module(override = true) {
     viewModel { AccountViewModel() }
