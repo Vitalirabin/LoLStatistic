@@ -24,7 +24,6 @@ object ApiFactory {
 
         })
 
-// Только в режиме отладки
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val okClient = OkHttpClient.Builder()

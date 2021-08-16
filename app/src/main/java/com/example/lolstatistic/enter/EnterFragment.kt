@@ -79,7 +79,7 @@ class EnterFragment : BaseFragment() {
         )
         adapter.setDropDownViewResource(R.layout.server_spiner_dropdown)
         binding.spinner.adapter = adapter
-        binding.spinner.prompt = "@strings"
+        binding.spinner.prompt = "strings"
         binding.spinner.setSelection(0)
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

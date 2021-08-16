@@ -5,6 +5,7 @@ import com.example.lolstatistic.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 class KoinSampleApplicationClass : Application() {
 
@@ -16,7 +17,7 @@ class KoinSampleApplicationClass : Application() {
             modules(
                 listOf(
                     matchRepoModule, accountRepoModule, statisticViewModule, accountViewModule,
-                    matchViewModule, enterViewModule, useCase)
+                    matchViewModule, enterViewModule, matchUseCase, accountUseCase)
             )
         }
     }
