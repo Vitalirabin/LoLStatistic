@@ -13,7 +13,7 @@ class MatchRepository(var api: RemoteApi) {
             val apiResponse = ApiResponse(result, null)
             apiResponse
         } catch (e: Throwable) {
-            Log.e("getAllMoveList", e.toString())
+            Log.e("getMatchListByPuuid", e.toString())
             ApiResponse(null, e)
         }
     }
@@ -25,7 +25,7 @@ class MatchRepository(var api: RemoteApi) {
             val apiResponse = ApiResponse(result, null)
             apiResponse
         } catch (e: Throwable) {
-            Log.e("getAllMoveList", e.toString())
+            Log.e("getMatchByMatchId", e.toString())
             ApiResponse(null, e)
         }
     }

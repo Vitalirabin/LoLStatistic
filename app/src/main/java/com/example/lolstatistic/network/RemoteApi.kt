@@ -35,7 +35,7 @@ interface RemoteApi {
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token:RGAPI-7fb1867c-14f6-46e2-8e85-7c3d9a957053"
+        "X-Riot-Token:RGAPI-2b4ad589-7f3b-45e2-83f6-241c064903b3"
     )
 
     @GET("/lol/summoner/v4/summoners/by-name/{name}")
@@ -44,7 +44,7 @@ interface RemoteApi {
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token:RGAPI-7fb1867c-14f6-46e2-8e85-7c3d9a957053"
+        "X-Riot-Token:RGAPI-2b4ad589-7f3b-45e2-83f6-241c064903b3"
     )
 
     @GET
@@ -53,7 +53,7 @@ interface RemoteApi {
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token:RGAPI-7fb1867c-14f6-46e2-8e85-7c3d9a957053"
+        "X-Riot-Token:RGAPI-2b4ad589-7f3b-45e2-83f6-241c064903b3"
     )
     @GET
     suspend fun getMatch(@Url url: String): MatchModel

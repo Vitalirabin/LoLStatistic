@@ -28,6 +28,7 @@ class MatchStatisticsUseCase(val accountRepository: AccountRepository, val match
             match = loadMatch(it)
             matchesModel.allMatches.value=+1
             if (match?.info?.participants?.get(match?.metadata?.participants?.indexOf(accountModel?.puuid)?:0)?.win==true){
+          //  if (match?.info!=null){
                 matchesModel.winMatches.value=+1}
             else matchesModel.loseMatches.value=+1
         }

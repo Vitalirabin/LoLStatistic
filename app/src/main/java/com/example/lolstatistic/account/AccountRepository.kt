@@ -15,7 +15,7 @@ class AccountRepository(
             val apiResponse = ApiResponse(result, null)
             apiResponse
         } catch (e: Throwable) {
-            Log.e("getAllMoveList",e.toString())
+            Log.e("getAccount",e.toString())
             ApiResponse(null, e)
         }
     }
