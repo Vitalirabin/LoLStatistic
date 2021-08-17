@@ -37,7 +37,7 @@ class StatisticFragment : BaseFragment() {
             false
         )
         binding.lifecycleOwner = this
-        binding.matchInfo = statisticViewModel.matchesModel
+        binding.matchInfo = statisticViewModel
         return binding.root
     }
 
