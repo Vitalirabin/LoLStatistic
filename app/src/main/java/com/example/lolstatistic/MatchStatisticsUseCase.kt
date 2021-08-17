@@ -18,12 +18,12 @@ class MatchStatisticsUseCase(val accountRepository: AccountRepository, val match
     }
 
     suspend fun loadMatch(matchId: String): MatchModel? {
-        return matchRepository.getMatchByMatchId(matchId).data
+        return matchRepository.getMatchByMatchId(String.format("https://europe.api.riotgames.com/lol/match/v5/matches/%s",matchId)).data
     }
 
     suspend fun getMatchStatistic(name: String):MatchesModel {
         accountModel = accountUseCase.loadAccount(name)
-        matchList = loadMatchList(accountModel?.puuid.toString())
+        matchList = loadMatchList(String.format("https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/%s/ids",accountModel?.puuid.toString()))
         matchList?.forEach {
             match = loadMatch(it)
             matchesModel.allMatches.value=+1

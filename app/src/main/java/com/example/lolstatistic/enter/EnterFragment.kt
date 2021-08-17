@@ -58,24 +58,12 @@ class EnterFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
+
     fun createSpinner() {
-        val list: MutableList<String> = mutableListOf()
-        list.add("BR1")
-        list.add("EUN1")
-        list.add("EUW1")
-        list.add("JP1")
-        list.add("KR")
-        list.add("LA1")
-        list.add("LA2")
-        list.add("NA1")
-        list.add("OC1")
-        list.add("OC1")
-        list.add("Ru")
-        list.add("TR1")
         val adapter = ArrayAdapter<String>(
             (requireActivity() as MainActivity),
             R.layout.server_spinner,
-            list
+            Servers.values().map { it.server }
         )
         adapter.setDropDownViewResource(R.layout.server_spiner_dropdown)
         binding.spinner.adapter = adapter
