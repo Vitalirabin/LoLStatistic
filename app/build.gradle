@@ -91,4 +91,7 @@ dependencies {
     implementation "org.koin:koin-android-scope:2.0.1"
     implementation "org.koin:koin-android-viewmodel:2.0.1"
 
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
 }

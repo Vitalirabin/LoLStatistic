@@ -1,21 +1,41 @@
 package com.example.lolstatistic.match
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lolstatistic.network.ApiFactory
-import kotlinx.coroutines.Dispatchers
+import com.example.lolstatistic.MatchStatisticsUseCase
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class MatchViewModel: ViewModel() {
-    val matchRepository = MatchRepository(ApiFactory.getApi())
-    val matchModel = MutableLiveData<MatchModel?>()
-    fun loadMatch(matchId:String) {
+class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
+    var matchModel: MatchModel? = null
+    var listOfMatchId: List<String>? = null
+    var listOfMatch: MutableList<MatchModel?>? = null
+    fun loadMatchIdList(name: String) {
         viewModelScope.launch {
-            matchModel.value = withContext(Dispatchers.IO) {
-                matchRepository.getMatchByMatchId(matchId).data
-            }
+            listOfMatchId =
+                matchStatisticsUseCase.loadMatchList(matchStatisticsUseCase.getPuuid(name) ?: "")
         }
+    }
+
+    fun loadMatch(matchId: String): MatchModel? {
+        viewModelScope.launch {
+            matchModel = matchStatisticsUseCase.loadMatch(matchId)
+        }
+        return matchModel
+    }
+
+    fun loadMatchList(name: String): MutableList<MatchModel?>? {
+        loadMatchIdList(name)
+        listOfMatchId?.forEach {
+            listOfMatch?.add(loadMatch(it))
+        }
+        return listOfMatch
+    }
+
+    fun getPuuid(name: String): String? {
+        var puuid: String? = null
+        viewModelScope.launch {
+            puuid = matchStatisticsUseCase.getPuuid(name)
+        }
+        return puuid
     }
 }

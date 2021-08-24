@@ -10,6 +10,7 @@ import com.example.lolstatistic.Constants.USER_NAME_VALUE
 import com.example.lolstatistic.MainActivity
 import com.example.lolstatistic.R
 import com.example.lolstatistic.databinding.FragmentEnterNameBinding
+import com.example.lolstatistic.match.MatchListFragment
 import com.example.lolstatistic.statistic.StatisticFragment
 import kotlinx.android.synthetic.main.fragment_enter_name.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -38,7 +39,7 @@ class EnterFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         createSpinner()
-        view.findViewById<Button>(R.id.enter_button).setOnClickListener {
+       /* view.findViewById<Button>(R.id.enter_button).setOnClickListener {
             if (view.findViewById<EditText>(R.id.name_of_account).text == null) {
                 Toast.makeText(requireContext(), "Пользователь не найден", Toast.LENGTH_SHORT)
                     .show()
@@ -52,6 +53,21 @@ class EnterFragment : BaseFragment() {
             )
             statisticFragment.arguments = bundle
             (requireActivity() as MainActivity).pushBackStack(statisticFragment)
+        }*/
+        view.findViewById<Button>(R.id.enter_button).setOnClickListener {
+            if (view.findViewById<EditText>(R.id.name_of_account).text == null) {
+                Toast.makeText(requireContext(), "Пользователь не найден", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+            }
+            val matchListFragment = MatchListFragment()
+            val bundle = Bundle()
+            bundle.putString(
+                USER_NAME_VALUE,
+                view.findViewById<EditText>(R.id.name_of_account).text.toString()
+            )
+            matchListFragment.arguments = bundle
+            (requireActivity() as MainActivity).pushBackStack(matchListFragment)
         }
     }
 

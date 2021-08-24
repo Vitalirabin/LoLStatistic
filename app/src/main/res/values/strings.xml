@@ -8,4 +8,9 @@
     <string name="lose_match">Количество проигрышей:</string>
     <string name="go_to_enter_fragment">Выйти в начало</string>
     <string name="pik_Server">Выберите сервеер</string>
+    <string name="kills">Убийств:</string>
+    <string name="assists">Помощи:</string>
+    <string name="deaths">Смертей:</string>
+    <string name="zero">0</string>
+    <string name="game_mode">Режим игры</string>
 </resources>

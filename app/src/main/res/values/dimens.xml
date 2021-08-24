@@ -2,6 +2,7 @@
 <resources>
     <dimen name="button_width">250dp</dimen>
     <dimen name="button_height">42dp</dimen>
+    <dimen name="button_margin">50dp</dimen>
 
     <dimen name="enter_button_text_size">13sp</dimen>
     <dimen name="info_text_size">15sp</dimen>
@@ -10,6 +11,7 @@
     <dimen name="text_size_label">11sp</dimen>
     <dimen name="text_size_footer">10sp</dimen>
     <dimen name="server_text_size">20sp</dimen>
+    <dimen name="game_mode_text_size">25sp</dimen>
 
     <dimen name="button_border_radius">6dp</dimen>
     <dimen name="image_border_radius">6dp</dimen>
@@ -19,4 +21,6 @@
     <dimen name="shop_category_line_height">36dp</dimen>
 
     <dimen name="spinner_margin_top">50dp</dimen>
+
+    <dimen name="recycler_view_marginBottom">100dp</dimen>
 </resources>
