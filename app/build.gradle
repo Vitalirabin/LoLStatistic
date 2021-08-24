@@ -15,9 +15,6 @@ android {
         //noinspection DataBindingWithoutKapt
         enabled = true
     }
-    buildFeatures {
-        viewBinding = true
-    }
     defaultConfig {
         applicationId "com.example.lolstatistic"
         minSdkVersion 24
@@ -91,7 +88,7 @@ dependencies {
 
 
     implementation "org.koin:koin-android:2.0.1"
-    implementation "org.koin:koin-android-scope:.2.0.1"
+    implementation "org.koin:koin-android-scope:2.0.1"
     implementation "org.koin:koin-android-viewmodel:2.0.1"
 
 }

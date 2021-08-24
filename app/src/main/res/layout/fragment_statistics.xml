@@ -12,97 +12,100 @@
             type="com.example.lolstatistic.statistic.StatisticViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/statistic_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A2AAEA">
+        tools:ignore="MissingConstraints">
 
-        <FrameLayout
-            android:id="@+id/statistic_container"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:ignore="MissingConstraints">
+            android:background="#A2AAEA">
 
 
-        </FrameLayout>
+            <TextView
+                android:id="@+id/all_match_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="300dp"
+                android:layout_marginTop="170dp"
+                android:text="@{matchInfo.allMatches.toString()}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/all_match"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="170dp"
-            android:text="@string/all_match"
-            android:textColor="@color/color_button"
-            android:textSize="@dimen/server_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/win_match_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="300dp"
+                android:layout_marginTop="50dp"
+                android:text="@{matchInfo.winMatches.toString()}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/all_match_count" />
 
-        <TextView
-            android:id="@+id/win_match"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/win_match"
-            android:textColor="#00FF64"
-            android:textSize="@dimen/server_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/all_match" />
+            <TextView
+                android:id="@+id/lose_match_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="300dp"
+                android:layout_marginTop="50dp"
+                android:text="@{matchInfo.loseMatches.toString()}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/win_match_count" />
 
-        <TextView
-            android:id="@+id/lose_match"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/lose_match"
-            android:textColor="#D50000"
-            android:textColorHighlight="#FFFFFF"
-            android:textSize="@dimen/server_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/win_match" />
 
-        <TextView
-            android:id="@+id/all_match_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="170dp"
-            android:text="@{matchInfo.matchesModel.allMatches.toString()}"
-            android:textSize="@dimen/server_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/all_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="170dp"
+                android:text="@string/all_match"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/win_match_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="50dp"
-            android:text="@{matchInfo.matchesModel.winMatches.toString()}"
-            android:textSize="@dimen/server_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/all_match_count" />
+            <TextView
+                android:id="@+id/win_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@string/win_match"
+                android:textColor="#00FF64"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/all_match" />
 
-        <TextView
-            android:id="@+id/lose_match_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="50dp"
-            android:text="@{matchInfo.matchesModel.loseMatches.toString()}"
-            android:textSize="@dimen/server_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/win_match_count" />
+            <TextView
+                android:id="@+id/lose_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@string/lose_match"
+                android:textColor="#D50000"
+                android:textColorHighlight="#FFFFFF"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/win_match" />
 
-        <Button
-            android:id="@+id/name_again"
-            style="@style/enterButton"
-            android:layout_marginBottom="50dp"
-            android:text="@string/go_to_enter_fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/name_again"
+                style="@style/enterButton"
+                android:layout_marginBottom="50dp"
+                android:text="@string/go_to_enter_fragment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>
