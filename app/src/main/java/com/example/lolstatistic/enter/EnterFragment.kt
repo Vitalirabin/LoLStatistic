@@ -29,10 +29,11 @@ class EnterFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentEnterNameBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        binding.lifecycleOwner=this
+        binding.clickInfo=enterViewModel
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,7 +68,7 @@ class EnterFragment : BaseFragment() {
         )
         adapter.setDropDownViewResource(R.layout.server_spiner_dropdown)
         binding.spinner.adapter = adapter
-        binding.spinner.prompt = "strings"
+        binding.spinner.prompt = "Выберите сервер"
         binding.spinner.setSelection(0)
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

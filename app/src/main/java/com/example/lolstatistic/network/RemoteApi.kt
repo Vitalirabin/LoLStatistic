@@ -35,25 +35,25 @@ interface RemoteApi {
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token:RGAPI-8760e7ab-0115-4922-a0cd-6ee0918ea91b"
+        "X-Riot-Token:RGAPI-bca1f215-d891-40a0-bf78-76252df7075f"
     )
 
     @GET("/lol/summoner/v4/summoners/by-name/{name}")
-    suspend fun getAccountByName(@Path("name")name: String): AccountModel
+    suspend fun getAccountByName(@Path("name") name: String): AccountModel
 
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token:RGAPI-8760e7ab-0115-4922-a0cd-6ee0918ea91b"
+        "X-Riot-Token:RGAPI-bca1f215-d891-40a0-bf78-76252df7075f"
     )
 
     @GET
-    suspend fun getMatchListByPuuid(  @Url  url:String ) : List<String>
+    suspend fun getMatchListByPuuid(@Url url: String): List<String>
 
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token:RGAPI-8760e7ab-0115-4922-a0cd-6ee0918ea91b"
+        "X-Riot-Token: RGAPI-bca1f215-d891-40a0-bf78-76252df7075f"
     )
     @GET
     suspend fun getMatch(@Url url: String): MatchModel

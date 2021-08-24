@@ -46,9 +46,7 @@ class StatisticFragment : BaseFragment() {
         val bundle = arguments
         val name = bundle?.getString(USER_NAME_VALUE).toString()
         statisticViewModel.getMatchStatistic(name)
-        view.postDelayed({
-            view.findViewById<TextView>(R.id.all_match_count).setText(statisticViewModel.allMatches.value.toString())
-        },10000)
+
         view.findViewById<Button>(R.id.name_again).setOnClickListener {
             (requireActivity() as MainActivity).onBackPressed()
         }
