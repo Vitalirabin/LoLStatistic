@@ -4,16 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.example.lolstatistic.BaseFragment
+import com.example.lolstatistic.MainActivity
 import com.example.lolstatistic.R
-import com.example.lolstatistic.enter.EnterActivity
+import com.example.lolstatistic.enter.EnterFragment
 
 class SplashFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.splash_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.postDelayed({
-            val intent = Intent(context, EnterActivity::class.java)
-            startActivity(intent)
+        view.postDelayed({(requireActivity() as MainActivity).pushBackStack(EnterFragment())
         }, 1500)
     }
 }

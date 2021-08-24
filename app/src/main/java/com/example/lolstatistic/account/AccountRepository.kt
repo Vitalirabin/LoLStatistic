@@ -4,19 +4,18 @@ import android.util.Log
 import com.example.lolstatistic.network.ApiFactory
 import com.example.lolstatistic.network.ApiResponse
 import com.example.lolstatistic.network.RemoteApi
-import retrofit2.await
 
 class AccountRepository(
     var api: RemoteApi
 ) {
-    suspend fun getAllMovieList(id:String): ApiResponse<AccountModel> {
+    suspend fun getAccount(name:String): ApiResponse<AccountModel> {
         return try {
             api = ApiFactory.getApi()
-            val result = api.getAccount(id)
+            val result = api.getAccountByName(name)
             val apiResponse = ApiResponse(result, null)
             apiResponse
         } catch (e: Throwable) {
-            Log.e("getAllMoveList",e.toString())
+            Log.e("getAccount",e.toString())
             ApiResponse(null, e)
         }
     }

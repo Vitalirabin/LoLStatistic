@@ -1,30 +1,29 @@
 package com.example.lolstatistic.statistic
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import com.example.lolstatistic.BaseFragment
+import com.example.lolstatistic.Constants.USER_NAME_VALUE
+import com.example.lolstatistic.MainActivity
 import com.example.lolstatistic.R
-import com.example.lolstatistic.account.AccountViewModel
-import com.example.lolstatistic.account.AccountViewModelFactory
 import com.example.lolstatistic.databinding.FragmentStatisticsBinding
-import com.example.lolstatistic.match.MatchViewModel
-import com.example.lolstatistic.match.MatchViewModelFactory
 import kotlinx.android.synthetic.main.fragment_statistics.*
+import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class StatisticFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_statistics
-    private val sfactory = StatisticViewModelFactory()
-    private val statisticViewModel: StatisticViewModel by viewModels { sfactory }
-    private val afactory = AccountViewModelFactory()
-    private val accountViewModel: AccountViewModel by viewModels { afactory }
-    private val mfactory = MatchViewModelFactory()
-    private val matchViewModel: MatchViewModel by viewModels { mfactory }
-    var matches = MatchesModel()
+
+    private val statisticViewModel: StatisticViewModel by viewModel()
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,31 +37,18 @@ class StatisticFragment : BaseFragment() {
             false
         )
         binding.lifecycleOwner = this
-        binding.matchInfo = matches
+        binding.matchInfo = statisticViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var i = 0
-        var k = 0
         val bundle = arguments
-        val name = bundle?.getString("tag").toString()
-        accountViewModel.loadAccount(name)
-        statisticViewModel.loadMatchId(accountViewModel.accountModel.value?.puuid.toString())
-        statisticViewModel.statisticModel.value?.forEach {
-            matches.allMatches++
-            matchViewModel.loadMatch(it)
-            matchViewModel.matchModel.value?.metadata?.participants?.forEach {
-                if (it == accountViewModel.accountModel.value?.puuid.toString()) {
-                    k = i
-                }
-                i++
-            }
-            if (matchViewModel.matchModel.value?.info?.participants?.get(k)?.win == true) {
-                matches.winMatches++
-            } else matches.loseMatches++
+        val name = bundle?.getString(USER_NAME_VALUE).toString()
+        statisticViewModel.getMatchStatistic(name)
+
+        view.findViewById<Button>(R.id.name_again).setOnClickListener {
+            (requireActivity() as MainActivity).onBackPressed()
         }
-        Log.e("StatisticFragment", "onClick")
     }
 }

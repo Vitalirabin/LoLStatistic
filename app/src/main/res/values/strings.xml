@@ -7,4 +7,5 @@
     <string name="win_match">Количество выигрышей:</string>
     <string name="lose_match">Количество проигрышей:</string>
     <string name="go_to_enter_fragment">Выйти в начало</string>
+    <string name="pik_Server">Выберите сервеер</string>
 </resources>
