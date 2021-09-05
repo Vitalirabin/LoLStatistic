@@ -7,8 +7,8 @@ import com.example.lolstatistic.MatchStatisticsUseCase
 import kotlinx.coroutines.launch
 
 class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
-    var muListOfMatch = MutableLiveData<List<MatchModel?>?>()
-    fun loadMatchList(name: String): MutableLiveData<List<MatchModel?>?> {
+    var muListOfMatch = MutableLiveData<MutableList<MatchModel>>()
+    fun loadMatchList(name: String): MutableLiveData<MutableList<MatchModel>> {
         viewModelScope.launch {
             muListOfMatch.value = matchStatisticsUseCase.getMatchList(name)
         }
@@ -17,5 +17,11 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
 
     fun getPuuid(name: String): String {
         return matchStatisticsUseCase.accountModel?.puuid.toString()
+    }
+
+    fun updateList(name: String) {
+        viewModelScope.launch {
+            muListOfMatch.value?.addAll(matchStatisticsUseCase.getMatchList(name))
+        }
     }
 }

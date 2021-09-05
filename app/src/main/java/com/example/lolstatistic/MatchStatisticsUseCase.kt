@@ -37,7 +37,7 @@ class MatchStatisticsUseCase(
         ).data
     }
 
-    suspend fun getMatchList(name: String): List<MatchModel> {
+    suspend fun getMatchList(name: String): MutableList<MatchModel> {
         var startMatch = 0
         do {
             matchListIdPrev = loadMatchList(
