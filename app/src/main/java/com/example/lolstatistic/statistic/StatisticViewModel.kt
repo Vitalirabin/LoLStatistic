@@ -14,7 +14,7 @@ class StatisticViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : V
     var loseMatches = MutableLiveData<String>()
     fun getMatchStatistic(name: String) {
         viewModelScope.launch {
-            matchStatisticsUseCase.getMatchStatistic(name)
+            matchStatisticsUseCase.getMatchesId(name)
             allMatches.value = matchStatisticsUseCase.allMatches.toString()
             winMatches.value = matchStatisticsUseCase.winMatches.toString()
             loseMatches.value = matchStatisticsUseCase.loseMatches.toString()

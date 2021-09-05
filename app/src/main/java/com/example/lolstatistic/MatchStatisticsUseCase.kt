@@ -14,20 +14,20 @@ class MatchStatisticsUseCase(
 ) {
     val accountUseCase = AccountUseCase(accountRepository)
     var accountModel: AccountModel? = null
-    var matchList: List<String>? = null
+    var matchListIdPrev: String? = null
+    var matchList = mutableListOf<String>()
     var match: MatchModel? = null
     var matchesModel = MutableLiveData<MatchesModel>()
     var allMatches = 0
     var winMatches = 0
     var loseMatches = 0
-
-    suspend fun getPuuid(name: String):String?{
+    suspend fun getPuuid(name: String): String? {
         accountModel = accountUseCase.loadAccount(name)
         return accountModel?.puuid
     }
 
-    suspend fun loadMatchList(puuid: String): List<String>? {
-        return matchRepository.getMatchListByPuuid(puuid).data
+    suspend fun loadMatchList(puuid: String): String {
+        return matchRepository.getMatchListByPuuid(puuid).data.toString()
     }
 
     suspend fun loadMatch(matchId: String): MatchModel? {
@@ -39,35 +39,19 @@ class MatchStatisticsUseCase(
         ).data
     }
 
-    suspend fun getMatchStatistic(name: String) {
-
+    suspend fun getMatchesId(name: String): MutableList<String> {
         accountModel = accountUseCase.loadAccount(name)
         var startMatch = 0
-
         do {
-            matchList = loadMatchList(
+            matchListIdPrev = loadMatchList(
                 String.format(
-                    "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/%s/ids?start=%s&count=100",
+                    "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/%s/ids?start=%s&count=5",
                     accountModel?.puuid.toString(), startMatch.toString()
                 )
             )
-            startMatch++
-
-            matchList?.forEach {
-                match = loadMatch(it)
-                // matchesModel.value?.allMatches=+1
-                allMatches++
-                if (match?.info?.participants?.get(
-                        match?.metadata?.participants?.indexOf(accountModel?.puuid) ?: 0
-                    )?.win == true
-                ) {
-                    winMatches++
-                }
-                //  if (match?.info!=null){
-                //  matchesModel.value?.winMatches=+1}
-                else //matchesModel.value?.loseMatches=+1
-                    loseMatches++
-            }
-        } while (matchList != null)
+            matchList.add(matchListIdPrev ?: "")
+            startMatch = startMatch + 5
+        } while (startMatch != 50)
+        return matchList
     }
 }

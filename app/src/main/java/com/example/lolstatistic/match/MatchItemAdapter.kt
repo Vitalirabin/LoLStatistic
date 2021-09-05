@@ -1,5 +1,6 @@
 package com.example.lolstatistic.match
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lolstatistic.R
 import kotlinx.android.synthetic.main.item_match.view.*
 
-class MatchItemAdapter(private val matches: MutableList<MatchModel?>?, val puuid: String?) :
-    RecyclerView.Adapter<MatchItemAdapter.MyViewHolder>() {
+class MatchItemAdapter(   private val context: Context,   private val matches: List<MatchModel?>, val puuid: String?) :  RecyclerView.Adapter<MatchItemAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kills: TextView = itemView.count_of_kills
@@ -27,7 +27,7 @@ class MatchItemAdapter(private val matches: MutableList<MatchModel?>?, val puuid
         )
     }
 
-    override fun getItemCount() = matches?.size ?: 0
+    override fun getItemCount() = matches.size ?: 0
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val match = matches[position]

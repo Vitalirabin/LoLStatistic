@@ -18,8 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".enter.EnterActivity" />
-        <activity android:name=".statistic.StatisticActivity" />
+        <activity android:name=".match.MatchListActivity" />
     </application>
 
 </manifest>

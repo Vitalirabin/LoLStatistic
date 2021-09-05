@@ -1,6 +1,7 @@
 package com.example.lolstatistic.network
 
 import com.example.lolstatistic.account.AccountModel
+import com.example.lolstatistic.match.MatchIdModel
 import com.example.lolstatistic.match.MatchModel
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -35,7 +36,7 @@ interface RemoteApi {
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token:RGAPI-bca1f215-d891-40a0-bf78-76252df7075f"
+        "X-Riot-Token:RGAPI-957f1dbb-ad0f-4e56-8559-5d6164598bd0"
     )
 
     @GET("/lol/summoner/v4/summoners/by-name/{name}")
@@ -44,7 +45,7 @@ interface RemoteApi {
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token:RGAPI-bca1f215-d891-40a0-bf78-76252df7075f"
+        "X-Riot-Token:RGAPI-957f1dbb-ad0f-4e56-8559-5d6164598bd0"
     )
 
     @GET
@@ -53,7 +54,7 @@ interface RemoteApi {
     @Headers(
         "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset: application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Riot-Token: RGAPI-bca1f215-d891-40a0-bf78-76252df7075f"
+        "X-Riot-Token:RGAPI-957f1dbb-ad0f-4e56-8559-5d6164598bd0"
     )
     @GET
     suspend fun getMatch(@Url url: String): MatchModel

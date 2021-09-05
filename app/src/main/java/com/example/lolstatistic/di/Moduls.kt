@@ -5,6 +5,7 @@ import com.example.lolstatistic.account.AccountRepository
 import com.example.lolstatistic.account.AccountUseCase
 import com.example.lolstatistic.enter.EnterViewModel
 import com.example.lolstatistic.match.MatchRepository
+import com.example.lolstatistic.match.MatchViewModel
 import com.example.lolstatistic.network.ApiFactory
 import com.example.lolstatistic.statistic.MatchesViewModel
 import com.example.lolstatistic.statistic.StatisticViewModel
@@ -22,7 +23,7 @@ val accountRepoModule = module(override = true) {
 val statisticViewModule = module(override = true) {
     viewModel { StatisticViewModel(get()) }
 }
-val matchViewModule = module(override = true) {
+val matchesViewModule = module(override = true) {
     viewModel { MatchesViewModel() }
 }
 val enterViewModule = module(override = true) {
@@ -33,4 +34,7 @@ val matchUseCase = module(override = true) {
 }
 val accountUseCase = module(override = true) {
     single { AccountUseCase(get()) }
+}
+val matchViewModule = module(override = true) {
+    viewModel { MatchViewModel(get()) }
 }
