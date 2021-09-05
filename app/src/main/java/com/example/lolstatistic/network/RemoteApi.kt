@@ -1,7 +1,6 @@
 package com.example.lolstatistic.network
 
 import com.example.lolstatistic.account.AccountModel
-import com.example.lolstatistic.match.MatchIdModel
 import com.example.lolstatistic.match.MatchModel
 import retrofit2.http.GET
 import retrofit2.http.Headers

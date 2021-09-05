@@ -15,8 +15,8 @@ class KoinSampleApplicationClass : Application() {
             androidLogger()
             modules(
                 listOf(
-                    matchRepoModule, accountRepoModule, statisticViewModule,
-                    matchesViewModule, enterViewModule, matchUseCase, accountUseCase,
+                    matchRepoModule, accountRepoModule,
+                    enterViewModule, matchUseCase, accountUseCase,
                     matchViewModule
                 )
             )

@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lolstatistic.R
 import kotlinx.android.synthetic.main.item_match.view.*
 
-class MatchItemAdapter(   private val context: Context,   private val matches: List<MatchModel?>, val puuid: String?) :  RecyclerView.Adapter<MatchItemAdapter.MyViewHolder>() {
+class MatchItemAdapter(
+    private val context: Context,
+    private val matches: List<MatchModel?>,
+    val puuid: String?
+) : RecyclerView.Adapter<MatchItemAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kills: TextView = itemView.count_of_kills
@@ -27,11 +31,10 @@ class MatchItemAdapter(   private val context: Context,   private val matches: L
         )
     }
 
-    override fun getItemCount() = matches.size ?: 0
+    override fun getItemCount() = matches.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val match = matches[position]
-
         holder.kills.text = (match?.info?.participants?.get(
             match.metadata?.participants?.indexOf(puuid) ?: 0
         )?.kills.toString())
@@ -41,10 +44,11 @@ class MatchItemAdapter(   private val context: Context,   private val matches: L
         holder.deaths.text = (match?.info?.participants?.get(
             match.metadata?.participants?.indexOf(puuid) ?: 0
         )?.deaths.toString())
-        holder.gameMode.text = match?.info?.gameMod
-        holder.status.text = (match?.info?.participants?.get(
-            match.metadata?.participants?.indexOf(puuid) ?: 0
-        )?.win.toString())
+        holder.gameMode.text = match?.info?.gameMode
+        if ((match?.info?.participants?.get(match.metadata?.participants?.indexOf(puuid) ?: 0)?.win == true)){
+                holder.status.text = "Победа"
+        }
+        else holder.status.text = "Поражение"
     }
 
 }
