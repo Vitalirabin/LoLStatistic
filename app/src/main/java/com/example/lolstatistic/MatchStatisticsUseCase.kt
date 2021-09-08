@@ -12,13 +12,8 @@ class MatchStatisticsUseCase(
 ) {
     val accountUseCase = AccountUseCase(accountRepository)
     var accountModel: AccountModel? = null
-    var matchListIdPrev = listOf<String>()
-    var matchIdList = mutableListOf<String>()
     var match: MatchModel? = null
-    var allMatches = 0
-    var winMatches = 0
-    var loseMatches = 0
-    var matchList = mutableListOf<MatchModel>()
+
     suspend fun getPuuid(name: String): String? {
         accountModel = accountUseCase.loadAccount(name)
         return accountModel?.puuid
@@ -37,18 +32,15 @@ class MatchStatisticsUseCase(
         ).data
     }
 
-    suspend fun getMatchList(name: String): MutableList<MatchModel> {
-        var startMatch = 0
-        do {
-            matchListIdPrev = loadMatchList(
-                String.format(
-                    "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/%s/ids?start=%s&count=2",
-                    getPuuid(name).toString(), startMatch.toString()
-                )
+    suspend fun getMatchList(name: String, startMatch: Int): MutableList<MatchModel> {
+        val matchList = mutableListOf<MatchModel>()
+        var matchIdList = listOf<String>()
+        matchIdList = loadMatchList(
+            String.format(
+                "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/%s/ids?start=%s&count=10",
+                getPuuid(name).toString(), startMatch.toString()
             )
-            matchIdList.addAll(matchListIdPrev)
-            startMatch = startMatch + 2
-        } while (startMatch != 10)
+        )
         matchIdList.forEach {
             matchList.add(loadMatch(it) ?: MatchModel())
         }
