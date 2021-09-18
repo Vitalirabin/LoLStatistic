@@ -1,18 +1,13 @@
 package com.example.lolstatistic.match
 
 import android.content.Context
-import android.content.DialogInterface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lolstatistic.R
 import kotlinx.android.synthetic.main.item_match.view.*
-import kotlin.coroutines.coroutineContext
 
 class MatchItemAdapter(
     private val context: Context,
@@ -22,8 +17,8 @@ class MatchItemAdapter(
 ) : RecyclerView.Adapter<MatchItemAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val kills: TextView = itemView.count_of_kills
-        val assists: TextView = itemView.count_of_assists
+        val kills: TextView = itemView.match_count_of_kills
+        val assists: TextView = itemView.match_count_of_assists
         val deaths: TextView = itemView.count_of_death
         val gameMode: TextView = itemView.game_mode
         val status: TextView = itemView.win_lose
@@ -39,6 +34,10 @@ class MatchItemAdapter(
     }
 
     override fun getItemCount() = matches.size
+
+    fun getMatchList():List<MatchModel?>{
+        return matches.toList()
+    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val match = matches[position]

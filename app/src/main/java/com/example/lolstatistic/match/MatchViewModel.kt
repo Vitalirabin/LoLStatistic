@@ -3,18 +3,24 @@ package com.example.lolstatistic.match
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.DiffUtil
 import com.example.lolstatistic.MatchStatisticsUseCase
 import kotlinx.coroutines.launch
 
+
 class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
-    var muListOfMatch = MutableLiveData<MutableList<MatchModel>>()
-    var startMatch=0
-    fun loadMatchList(name: String): MutableLiveData<MutableList<MatchModel>> {
+    var listOfMatch = MutableLiveData<List<MatchModel?>>()
+    val muListOfMatch= mutableListOf<MatchModel?>()
+    var startMatch = 0
+    val match = MutableLiveData<MatchModel>()
+    val participant = MutableLiveData<Participant>()
+
+    fun loadMatchList(name: String): MutableLiveData<List<MatchModel?>> {
         viewModelScope.launch {
-            muListOfMatch.value = matchStatisticsUseCase.getMatchList(name, startMatch)
-            startMatch+=10
+            listOfMatch.value = matchStatisticsUseCase.getMatchList(name, startMatch)
+            startMatch += 10
         }
-        return muListOfMatch
+        return listOfMatch
     }
 
     fun getPuuid(): String {
@@ -23,9 +29,21 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
 
     fun updateList(name: String) {
         viewModelScope.launch {
-            muListOfMatch.value?.addAll(matchStatisticsUseCase.getMatchList(name,startMatch))
-            muListOfMatch.value=muListOfMatch.value
-            startMatch+=10
+            muListOfMatch.addAll(matchStatisticsUseCase.getMatchList(name, startMatch))
+            listOfMatch.value = muListOfMatch.toList()
+            startMatch += 10
         }
+    }
+
+    fun getParticipant(id: String) {
+        viewModelScope.launch {
+            match.value = matchStatisticsUseCase.loadMatch(id)
+            match.value = match.value
+            val index = match.value?.metadata?.participants?.indexOf(
+                getPuuid()
+            )
+            participant.value = match.value?.info?.participants?.get(index ?: 0)
+        }
+
     }
 }

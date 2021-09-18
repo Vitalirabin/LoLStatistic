@@ -11,7 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/game_mode"
         android:textColor="@color/color_button"
         android:textSize="@dimen/game_mode_text_size"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/kills"
+        android:id="@+id/match_kills"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -30,18 +29,18 @@
         app:layout_constraintTop_toBottomOf="@+id/game_mode" />
 
     <TextView
-        android:id="@+id/count_of_kills"
+        android:id="@+id/match_count_of_kills"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="@string/zero"
         android:textColor="@color/color_kills"
         android:textSize="@dimen/info_text_size"
-        app:layout_constraintStart_toEndOf="@+id/kills"
+        app:layout_constraintStart_toEndOf="@+id/match_kills"
         app:layout_constraintTop_toBottomOf="@+id/game_mode" />
 
     <TextView
-        android:id="@+id/assists"
+        android:id="@+id/match_assists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/assists"
@@ -53,18 +52,18 @@
         app:layout_constraintTop_toBottomOf="@+id/game_mode" />
 
     <TextView
-        android:id="@+id/count_of_assists"
+        android:id="@+id/match_count_of_assists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="@string/zero"
         android:textColor="@color/color_assists"
         android:textSize="@dimen/info_text_size"
-        app:layout_constraintStart_toEndOf="@+id/assists"
+        app:layout_constraintStart_toEndOf="@+id/match_assists"
         app:layout_constraintTop_toBottomOf="@+id/game_mode" />
 
     <TextView
-        android:id="@+id/death"
+        android:id="@+id/match_death"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -92,7 +91,7 @@
         android:textSize="@dimen/game_mode_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assists" />
+        app:layout_constraintTop_toBottomOf="@+id/match_assists" />
 
     <TextView
         android:id="@+id/position"

@@ -6,4 +6,7 @@ class Participant {
     val assists: Int? = null
     val deaths: Int? = null
     val championName: String? = null
+    val lane: String? = null
+    val dragonKills: String? = null
+    val doubleKills: String? = null
 }

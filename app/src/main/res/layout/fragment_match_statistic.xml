@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="matchViewModel"
+            type="com.example.lolstatistic.match.MatchViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:viewBindingIgnore="true"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/item_match_back">
+
+            <TextView
+                android:id="@+id/match_game_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@{matchViewModel.match.info.gameMode.toString()}"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/game_mode_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/match_text_game_mode"
+                app:layout_constraintTop_toBottomOf="@id/win_lose" />
+
+            <TextView
+                android:id="@+id/match_kills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="100dp"
+                android:text="@string/kills"
+                android:textColor="@color/color_kills"
+                android:textSize="@dimen/info_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/win_lose" />
+
+            <TextView
+                android:id="@+id/match_count_of_kills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="100dp"
+                android:text="@{matchViewModel.participant.kills.toString()}"
+                android:textColor="@color/color_kills"
+                android:textSize="@dimen/info_text_size"
+                app:layout_constraintStart_toEndOf="@+id/match_kills"
+                app:layout_constraintTop_toBottomOf="@+id/win_lose" />
+
+            <TextView
+                android:id="@+id/match_assists"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="@string/assists"
+                android:textColor="@color/color_assists"
+                android:textSize="@dimen/info_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/win_lose" />
+
+            <TextView
+                android:id="@+id/match_count_of_assists"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="100dp"
+                android:text="@{matchViewModel.participant.assists.toString()}"
+                android:textColor="@color/color_assists"
+                android:textSize="@dimen/info_text_size"
+                app:layout_constraintStart_toEndOf="@+id/match_assists"
+                app:layout_constraintTop_toBottomOf="@+id/win_lose" />
+
+            <TextView
+                android:id="@+id/match_death"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/deaths"
+                android:textColor="@color/black"
+                android:textSize="@dimen/info_text_size"
+                app:layout_constraintEnd_toStartOf="@+id/count_of_death"
+                app:layout_constraintTop_toBottomOf="@+id/win_lose" />
+
+            <TextView
+                android:id="@+id/count_of_death"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="10dp"
+                android:text="@{matchViewModel.participant.deaths.toString()}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/info_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/win_lose" />
+
+            <TextView
+                android:id="@+id/win_lose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/game_mode_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/match_text_game_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/game_mode"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/game_mode_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/win_lose" />
+
+            <TextView
+                android:id="@+id/game_champion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@string/your_champion"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/game_mode_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/match_assists" />
+
+            <TextView
+                android:id="@+id/name_game_champion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@{matchViewModel.participant.championName.toString()}"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/game_mode_text_size"
+                app:layout_constraintStart_toEndOf="@+id/game_champion"
+                app:layout_constraintTop_toBottomOf="@+id/match_assists" />
+
+            <TextView
+                android:id="@+id/match_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/line"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/game_champion" />
+
+            <TextView
+                android:id="@+id/line_in_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@{matchViewModel.participant.lane}"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toEndOf="@+id/match_line"
+                app:layout_constraintTop_toBottomOf="@+id/game_champion" />
+
+            <TextView
+                android:id="@+id/text_dragon_kill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/count_kill_of_dragon"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/match_line" />
+
+            <TextView
+                android:id="@+id/count_of_dragon_kills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@{matchViewModel.participant.dragonKills.toString()}"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toEndOf="@+id/text_dragon_kill"
+                app:layout_constraintTop_toBottomOf="@+id/match_line" />
+
+            <TextView
+                android:id="@+id/double_kills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/count_of_double_kills"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_dragon_kill" />
+
+            <TextView
+                android:id="@+id/count_of_double_kills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@{matchViewModel.participant.doubleKills.toString()}"
+                android:textColor="@color/color_button"
+                android:textSize="@dimen/server_text_size"
+                app:layout_constraintStart_toEndOf="@+id/double_kills"
+                app:layout_constraintTop_toBottomOf="@+id/text_dragon_kill" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>
