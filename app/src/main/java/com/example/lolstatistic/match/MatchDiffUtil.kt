@@ -3,27 +3,11 @@ package com.example.lolstatistic.match
 import androidx.recyclerview.widget.DiffUtil
 
 
-class MatchDiffUtil(private val oldList: List<MatchModel?>, private val newList: List<MatchModel?>) :
-    DiffUtil.Callback() {
-    override fun getOldListSize(): Int {
-        return oldList.size
-    }
+class MatchDiffUtil : DiffUtil.ItemCallback<MatchModel>() {
+    override fun areItemsTheSame(oldItem: MatchModel, newItem: MatchModel): Boolean =
+        oldItem.info?.gameId == newItem.info?.gameId
 
-    override fun getNewListSize(): Int {
-        return newList.size
+    override fun areContentsTheSame(oldItem: MatchModel, newItem: MatchModel): Boolean {
+        return ( oldItem.info?.gameId == newItem.info?.gameId)
     }
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldMatch: MatchModel? = oldList[oldItemPosition]
-        val newMatch: MatchModel? = newList[newItemPosition]
-        return oldMatch?.info?.gameId == newMatch?.info?.gameId
-    }
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldMatch: MatchModel? = oldList[oldItemPosition]
-        val newMatch: MatchModel? = newList[newItemPosition]
-        return (oldMatch?.info?.gameMode==newMatch?.info?.gameMode
-                && oldMatch?.metadata?.participants == newMatch?.metadata?.participants)
-    }
-
 }

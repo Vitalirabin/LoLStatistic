@@ -3,24 +3,25 @@ package com.example.lolstatistic.match
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.DiffUtil
 import com.example.lolstatistic.MatchStatisticsUseCase
 import kotlinx.coroutines.launch
 
 
 class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
-    var listOfMatch = MutableLiveData<List<MatchModel?>>()
-    val muListOfMatch= mutableListOf<MatchModel?>()
-    var startMatch = 0
+    var listOfMatch = MutableLiveData<MutableList<MatchModel>>()
     val match = MutableLiveData<MatchModel>()
     val participant = MutableLiveData<Participant>()
+    var isLoading = false
 
-    fun loadMatchList(name: String): MutableLiveData<List<MatchModel?>> {
+    fun loadMatchList(name: String) {
+        if (isLoading)
+            return
         viewModelScope.launch {
-            listOfMatch.value = matchStatisticsUseCase.getMatchList(name, startMatch)
-            startMatch += 10
+            isLoading = true
+            listOfMatch.value = matchStatisticsUseCase.getMatchList(name, 0)
+            isLoading = false
         }
-        return listOfMatch
+        return
     }
 
     fun getPuuid(): String {
@@ -28,10 +29,15 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
     }
 
     fun updateList(name: String) {
+        if (isLoading)
+            return
         viewModelScope.launch {
-            muListOfMatch.addAll(matchStatisticsUseCase.getMatchList(name, startMatch))
-            listOfMatch.value = muListOfMatch.toList()
-            startMatch += 10
+            isLoading = true
+            val newListOfMatch= mutableListOf<MatchModel>()
+            newListOfMatch.addAll(listOfMatch.value?: emptyList(),)
+            newListOfMatch.addAll(matchStatisticsUseCase.getMatchList(name, listOfMatch.value?.size?:0))
+            listOfMatch.value = newListOfMatch
+            isLoading = false
         }
     }
 

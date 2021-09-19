@@ -9,4 +9,5 @@ class Participant {
     val lane: String? = null
     val dragonKills: String? = null
     val doubleKills: String? = null
+    val puuid: String? = null
 }

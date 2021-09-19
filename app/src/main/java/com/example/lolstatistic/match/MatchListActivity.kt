@@ -2,6 +2,7 @@ package com.example.lolstatistic.match
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -14,44 +15,31 @@ import com.example.lolstatistic.MainActivity
 import com.example.lolstatistic.R
 import kotlinx.android.synthetic.main.activity_match_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.*
-import android.util.Log
-import androidx.recyclerview.widget.DiffUtil
 
 class MatchListActivity : AppCompatActivity() {
 
     private val matchViewModel: MatchViewModel by viewModel()
-    private var isLoading: Boolean = true
-    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var adapter: MatchItemAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_list)
         val arguments: Bundle? = intent.extras
         val name = arguments?.get(USER_NAME_VALUE).toString()
-        match_list.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(this)
-        matchViewModel.muListOfMatch.observe(this, Observer {
-            val adapter = MatchItemAdapter(
-                this@MatchListActivity,
-                it ?: emptyList<MatchModel>(),
-                matchViewModel.getPuuid(),
-                object : ItemOnClickListener {
-                    override fun onClick(match: MatchModel?) {
-                        Log.d("MatchListActivity","RU_${match?.info?.gameId.toString()}")
-                        val matchFragment = MatchFragment()
-                        val bundle = Bundle()
-                        bundle.putString(MATCH_ID_VALUE,"RU_${match?.info?.gameId.toString()}")
-                        matchFragment.arguments = bundle
-                        pushBackStack(matchFragment)
+        initList(name)
+        matchViewModel.listOfMatch.observe(this, Observer {
+            if (!::adapter.isInitialized) {
+                adapter = MatchItemAdapter(
+                    matchViewModel.getPuuid(),
+                    object : ItemOnClickListener {
+                        override fun onClick(match: MatchModel?) {
+                            click(match)
+                        }
                     }
-                }
-            )
-            val productDiffUtilCallback = MatchDiffUtil(adapter.getMatchList(), matchViewModel.muListOfMatch)
-            val productDiffResult = DiffUtil.calculateDiff(productDiffUtilCallback)
-            adapter.notifyDataSetChanged()
-            match_list.adapter = adapter
-            match_list.layoutManager = layoutManager
-            addOnScrollListener(name)
+                )
+                match_list.adapter = adapter
+            }
+            adapter.submitList(it)
         })
         matchViewModel.loadMatchList(name)
     }
@@ -61,9 +49,8 @@ class MatchListActivity : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val totalItemCount = recyclerView.layoutManager!!.itemCount
-                if (isLoading && totalItemCount == layoutManager.findLastVisibleItemPosition() + 1) {
+                if (totalItemCount < (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() + 4) {
                     matchViewModel.updateList(name)
-                    isLoading = true
                 }
             }
         })
@@ -73,7 +60,7 @@ class MatchListActivity : AppCompatActivity() {
         super.onResume()
         val button: Button = button_back_to_enter_fragment
         button.setOnClickListener {
-            Log.d("MatchListActivity","onResume onClick")
+            Log.d("MatchListActivity", "onResume onClick")
             val Activity = Intent(this, MainActivity::class.java)
             this.startActivity(Activity)
         }
@@ -89,6 +76,19 @@ class MatchListActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().addToBackStack(fragment.tag)
             .add(R.id.main_container, fragment, fragment.tag)
             .commit()
+    }
+
+    fun click(match: MatchModel?) {
+        Log.d("MatchListActivity", "RU_${match?.info?.gameId.toString()}")
+        val matchFragment = MatchFragment()
+        val bundle = Bundle()
+        bundle.putString(MATCH_ID_VALUE, "RU_${match?.info?.gameId.toString()}")
+        matchFragment.arguments = bundle
+        pushBackStack(matchFragment)
+    }
+
+    private fun initList(name: String) {
+        addOnScrollListener(name)
     }
     /*   private fun addSwiped(adapter: MatchItemAdapter) {
            val itemTouchCallback = object :

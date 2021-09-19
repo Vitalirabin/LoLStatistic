@@ -60,6 +60,7 @@
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="@string/enter_name"
+                android:text="Crazy Father"
                 android:textColor="@color/color_button"
                 android:textColorHint="@color/color_button"
                 app:layout_constraintBottom_toTopOf="@+id/enter_button"

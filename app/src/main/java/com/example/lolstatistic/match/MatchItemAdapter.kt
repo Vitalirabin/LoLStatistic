@@ -1,22 +1,20 @@
 package com.example.lolstatistic.match
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lolstatistic.R
 import kotlinx.android.synthetic.main.item_match.view.*
 
 class MatchItemAdapter(
-    private val context: Context,
-    private val matches: List<MatchModel?>,
     val puuid: String?,
     val onClickListener: ItemOnClickListener
-) : RecyclerView.Adapter<MatchItemAdapter.MyViewHolder>() {
+) : ListAdapter<MatchModel, MatchItemAdapter.MyViewHolder>(Companion.diffCallback) {
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kills: TextView = itemView.match_count_of_kills
         val assists: TextView = itemView.match_count_of_assists
         val deaths: TextView = itemView.count_of_death
@@ -33,33 +31,26 @@ class MatchItemAdapter(
         )
     }
 
-    override fun getItemCount() = matches.size
-
-    fun getMatchList():List<MatchModel?>{
-        return matches.toList()
-    }
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val match = matches[position]
+        val match = getItem(position)
         holder.positionItem.text = (position + 1).toString()
-        holder.kills.text = (match?.info?.participants?.get(
-            match.metadata?.participants?.indexOf(puuid) ?: 0
-        )?.kills.toString())
-        holder.assists.text = (match?.info?.participants?.get(
-            match.metadata?.participants?.indexOf(puuid) ?: 0
-        )?.assists.toString())
-        holder.deaths.text = (match?.info?.participants?.get(
-            match.metadata?.participants?.indexOf(puuid) ?: 0
-        )?.deaths.toString())
+        holder.kills.text =
+            (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.kills.toString())
+        holder.assists.text =
+            (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.assists.toString())
+        holder.deaths.text =
+            (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.deaths.toString())
         holder.gameMode.text = match?.info?.gameMode
-        if ((match?.info?.participants?.get(
-                match.metadata?.participants?.indexOf(puuid) ?: 0
-            )?.win == true)
+        if ((match?.info?.participants?.firstOrNull { it.puuid == puuid }?.win == true)
         ) {
             holder.status.text = "Победа"
         } else holder.status.text = "Поражение"
         holder.itemView.setOnClickListener {
             onClickListener.onClick(match)
         }
+    }
+
+    companion object {
+        val diffCallback = MatchDiffUtil()
     }
 }
