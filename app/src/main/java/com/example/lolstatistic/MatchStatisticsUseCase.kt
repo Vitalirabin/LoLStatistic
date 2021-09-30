@@ -3,7 +3,7 @@ package com.example.lolstatistic
 import com.example.lolstatistic.account.AccountModel
 import com.example.lolstatistic.account.AccountRepository
 import com.example.lolstatistic.account.AccountUseCase
-import com.example.lolstatistic.match.MatchModel
+import com.example.lolstatistic.match.details.MatchModel
 import com.example.lolstatistic.match.MatchRepository
 
 class MatchStatisticsUseCase(

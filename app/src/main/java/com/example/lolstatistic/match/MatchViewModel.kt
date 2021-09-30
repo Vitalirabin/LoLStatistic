@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lolstatistic.MatchStatisticsUseCase
+import com.example.lolstatistic.match.details.MatchModel
+import com.example.lolstatistic.match.details.Participant
 import kotlinx.coroutines.launch
 
 

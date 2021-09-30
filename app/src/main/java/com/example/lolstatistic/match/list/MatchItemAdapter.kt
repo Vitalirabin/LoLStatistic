@@ -1,4 +1,4 @@
-package com.example.lolstatistic.match
+package com.example.lolstatistic.match.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lolstatistic.R
+import com.example.lolstatistic.match.details.MatchModel
 import kotlinx.android.synthetic.main.item_match.view.*
 
 class MatchItemAdapter(
     val puuid: String?,
     val onClickListener: ItemOnClickListener
-) : ListAdapter<MatchModel, MatchItemAdapter.MyViewHolder>(Companion.diffCallback) {
+) : ListAdapter<MatchModel, MatchItemAdapter.MyViewHolder>(diffCallback) {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kills: TextView = itemView.match_count_of_kills

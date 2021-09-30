@@ -1,4 +1,4 @@
-package com.example.lolstatistic.match
+package com.example.lolstatistic.match.details
 
 class Participant {
     var win: Boolean = true

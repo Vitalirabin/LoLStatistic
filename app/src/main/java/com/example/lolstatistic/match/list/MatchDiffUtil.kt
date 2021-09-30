@@ -1,6 +1,7 @@
-package com.example.lolstatistic.match
+package com.example.lolstatistic.match.list
 
 import androidx.recyclerview.widget.DiffUtil
+import com.example.lolstatistic.match.details.MatchModel
 
 
 class MatchDiffUtil : DiffUtil.ItemCallback<MatchModel>() {

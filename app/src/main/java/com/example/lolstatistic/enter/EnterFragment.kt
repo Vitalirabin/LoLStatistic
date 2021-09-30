@@ -1,17 +1,15 @@
 package com.example.lolstatistic.enter
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.Navigation
 import com.example.lolstatistic.BaseFragment
-import com.example.lolstatistic.Constants.USER_NAME_VALUE
 import com.example.lolstatistic.MainActivity
 import com.example.lolstatistic.R
 import com.example.lolstatistic.databinding.FragmentEnterNameBinding
-import com.example.lolstatistic.match.MatchListActivity
 import kotlinx.android.synthetic.main.fragment_enter_name.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
@@ -39,33 +37,15 @@ class EnterFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         createSpinner()
-        /* view.findViewById<Button>(R.id.enter_button).setOnClickListener {
-             if (view.findViewById<EditText>(R.id.name_of_account).text == null) {
-                 Toast.makeText(requireContext(), "Пользователь не найден", Toast.LENGTH_SHORT)
-                     .show()
-                 return@setOnClickListener
-             }
-             val statisticFragment = StatisticFragment()
-             val bundle = Bundle()
-             bundle.putString(
-                 USER_NAME_VALUE,
-                 view.findViewById<EditText>(R.id.name_of_account).text.toString()
-             )
-             statisticFragment.arguments = bundle
-             (requireActivity() as MainActivity).pushBackStack(statisticFragment)
-         }*/
         view.findViewById<Button>(R.id.enter_button).setOnClickListener {
             if (view.findViewById<EditText>(R.id.name_of_account).text == null) {
                 Toast.makeText(requireContext(), "Пользователь не найден", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
             }
-            val matchListActivity = Intent(context, MatchListActivity::class.java)
-            matchListActivity.putExtra(
-                USER_NAME_VALUE,
-                view.findViewById<EditText>(R.id.name_of_account).text.toString()
-            )
-            context?.startActivity(matchListActivity)
+            val action = EnterFragmentDirections.actionEnterFragmentToMatchListFragment()
+            action.name = name
+            Navigation.findNavController(view).navigate(action)
         }
     }
 

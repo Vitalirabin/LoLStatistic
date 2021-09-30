@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/matchFragment"
+        android:name="com.example.lolstatistic.match.details.MatchFragment"
+        android:label="MatchFragment">
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterFragment"
+        android:name="com.example.lolstatistic.enter.EnterFragment"
+        android:label="EnterFragment">
+        <action
+            android:id="@+id/action_enterFragment_to_matchListFragment"
+            app:destination="@id/matchListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.lolstatistic.splash.SplashFragment"
+        android:label="SplashFragment">
+        <action
+            android:id="@+id/action_splashFragment_to_enterFragment2"
+            app:destination="@id/enterFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.lolstatistic.MainActivity"
+        android:label="MainActivity" />
+    <fragment
+        android:id="@+id/matchListFragment"
+        android:name="com.example.lolstatistic.match.list.MatchListFragment"
+        android:label="MatchListFragment">
+        <action
+            android:id="@+id/action_matchListFragment_to_matchFragment"
+            app:destination="@id/matchFragment" />
+        <argument
+            android:name="name"
+            android:defaultValue="noName"
+            app:argType="string" />
+    </fragment>
+</navigation>

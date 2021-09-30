@@ -1,4 +1,4 @@
-package com.example.lolstatistic.match
+package com.example.lolstatistic.match.details
 
 class InfoOfMatch {
     val participants: List<Participant>? = null

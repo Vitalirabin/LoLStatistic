@@ -1,4 +1,4 @@
-package com.example.lolstatistic.match
+package com.example.lolstatistic.match.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import com.example.lolstatistic.R
 import com.example.lolstatistic.databinding.FragmentMatchStatisticBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 import android.util.Log
+import com.example.lolstatistic.match.MatchViewModel
 
 class MatchFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_match_statistic

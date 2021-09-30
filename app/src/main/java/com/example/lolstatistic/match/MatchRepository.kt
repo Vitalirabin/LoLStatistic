@@ -1,6 +1,7 @@
 package com.example.lolstatistic.match
 
 import android.util.Log
+import com.example.lolstatistic.match.details.MatchModel
 import com.example.lolstatistic.network.ApiFactory
 import com.example.lolstatistic.network.ApiResponse
 import com.example.lolstatistic.network.RemoteApi
