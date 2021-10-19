@@ -1,9 +1,14 @@
 package com.example.lolstatistic.match.details
 
-import com.example.lolstatistic.match.details.DataMatch
-import com.example.lolstatistic.match.details.InfoOfMatch
+import androidx.room.ColumnInfo
 
+@Entity
 class MatchModel {
-    val metadata: DataMatch?=null
-    val info: InfoOfMatch?=null
+    @ColumnInfo(name = "metadata")
+    val metadata: DataMatch? = null
+
+    @ColumnInfo(name = "info")
+    val info: InfoOfMatch? = null
 }
+
+annotation class Entity

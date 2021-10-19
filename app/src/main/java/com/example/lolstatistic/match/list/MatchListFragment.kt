@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.lolstatistic.BaseFragment
 import com.example.lolstatistic.MainActivity
 import com.example.lolstatistic.R
@@ -24,6 +25,10 @@ class MatchListFragment : BaseFragment() {
     private val matchViewModel: MatchViewModel by viewModel()
     private lateinit var adapter: MatchItemAdapter
     override fun getLayoutId(): Int = R.layout.fragment_match_list
+    var db: MatchDataBase = Room.databaseBuilder(
+        requireContext(),
+        MatchDataBase::class.java, "populus-database"
+    ).build()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,7 +75,7 @@ class MatchListFragment : BaseFragment() {
         Log.d("MatchListActivity", "RU_${match?.info?.gameId.toString()}")
         val action = MatchListFragmentDirections.actionMatchListFragmentToMatchFragment()
         action.id = "RU_${match?.info?.gameId.toString()}"
-        view?.let { it }?.let { Navigation.findNavController(it).navigate(action) }
+        view?.let { Navigation.findNavController(it).navigate(action) }
     }
 
     private fun initList(name: String) {

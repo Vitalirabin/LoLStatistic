@@ -28,5 +28,5 @@ val accountUseCase = module(override = true) {
     single { AccountUseCase(get()) }
 }
 val matchViewModule = module(override = true) {
-    viewModel { MatchViewModel(get()) }
+    viewModel { MatchViewModel(get(), get()) }
 }

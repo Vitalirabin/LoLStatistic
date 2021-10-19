@@ -6,14 +6,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.lolstatistic.MatchStatisticsUseCase
 import com.example.lolstatistic.match.details.MatchModel
 import com.example.lolstatistic.match.details.Participant
+import com.example.lolstatistic.match.list.MatchDataBase
 import kotlinx.coroutines.launch
 
 
-class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
+class MatchViewModel(
+    val matchStatisticsUseCase: MatchStatisticsUseCase, dataBase: MatchDataBase) : ViewModel() {
     var listOfMatch = MutableLiveData<MutableList<MatchModel>>()
     val match = MutableLiveData<MatchModel>()
     val participant = MutableLiveData<Participant>()
     var isLoading = false
+    var matchDao = dataBase.MatchesDao()
 
     fun loadMatchList(name: String) {
         if (isLoading)
@@ -35,10 +38,16 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
             return
         viewModelScope.launch {
             isLoading = true
-            val newListOfMatch= mutableListOf<MatchModel>()
-            newListOfMatch.addAll(listOfMatch.value?: emptyList(),)
-            newListOfMatch.addAll(matchStatisticsUseCase.getMatchList(name, listOfMatch.value?.size?:0))
+            val newListOfMatch = mutableListOf<MatchModel>()
+            newListOfMatch.addAll(listOfMatch.value ?: emptyList())
+            newListOfMatch.addAll(
+                matchStatisticsUseCase.getMatchList(
+                    name,
+                    listOfMatch.value?.size ?: 0
+                )
+            )
             listOfMatch.value = newListOfMatch
+            matchDao?.updateData(listOfMatch.value)
             isLoading = false
         }
     }
