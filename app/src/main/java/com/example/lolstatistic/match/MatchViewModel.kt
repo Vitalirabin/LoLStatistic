@@ -9,8 +9,7 @@ import com.example.lolstatistic.match.details.Participant
 import kotlinx.coroutines.launch
 
 
-class MatchViewModel(
-    val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
+class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
     var listOfMatch = MutableLiveData<MutableList<MatchModel>>()
     val match = MutableLiveData<MatchModel>()
     val participant = MutableLiveData<Participant>()
