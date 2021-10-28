@@ -1,21 +1,18 @@
 package com.example.lolstatistic.match.list
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.lolstatistic.BaseFragment
-import com.example.lolstatistic.MainActivity
 import com.example.lolstatistic.R
-import com.example.lolstatistic.match.*
+import com.example.lolstatistic.match.MatchViewModel
 import com.example.lolstatistic.match.details.MatchModel
 import kotlinx.android.synthetic.main.fragment_match_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -25,10 +22,6 @@ class MatchListFragment : BaseFragment() {
     private val matchViewModel: MatchViewModel by viewModel()
     private lateinit var adapter: MatchItemAdapter
     override fun getLayoutId(): Int = R.layout.fragment_match_list
-    var db: MatchDataBase = Room.databaseBuilder(
-        requireContext(),
-        MatchDataBase::class.java, "populus-database"
-    ).build()
 
     override fun onCreateView(
         inflater: LayoutInflater,

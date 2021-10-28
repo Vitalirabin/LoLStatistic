@@ -3,16 +3,20 @@ package com.example.lolstatistic
 import com.example.lolstatistic.account.AccountModel
 import com.example.lolstatistic.account.AccountRepository
 import com.example.lolstatistic.account.AccountUseCase
-import com.example.lolstatistic.match.details.MatchModel
+import com.example.lolstatistic.data_base.MatchDataBase
+import com.example.lolstatistic.data_base.MatchModelForDataBase
 import com.example.lolstatistic.match.MatchRepository
+import com.example.lolstatistic.match.details.MatchModel
 
 class MatchStatisticsUseCase(
     accountRepository: AccountRepository,
-    val matchRepository: MatchRepository
+    val matchRepository: MatchRepository,
+    val db: MatchDataBase
 ) {
     val accountUseCase = AccountUseCase(accountRepository)
     var accountModel: AccountModel? = null
     var match: MatchModel? = null
+    var mdb=db.MatchesDao()
 
     suspend fun getPuuid(name: String): String? {
         accountModel = accountUseCase.loadAccount(name)
@@ -45,5 +49,21 @@ class MatchStatisticsUseCase(
             matchList.add(loadMatch(it) ?: MatchModel())
         }
         return matchList
+    }
+
+    fun writingDataToTheDatabase(list: MutableList<MatchModel>) {
+        val matchBase = MatchModelForDataBase()
+        list.forEach {
+            matchBase.gameId = it.info?.gameId
+            matchBase.gameMode = it.info?.gameMode
+            mdb?.updateData(matchBase)
+        }
+    }
+
+    fun readFromDataBase(id:String):MatchModel{
+        val matchModel=MatchModel()
+       matchModel.info?.gameMode= mdb?.getById(id)?.info?.gameMode.toString()
+       matchModel.info?.gameId= mdb?.getById(id)?.info?.gameId.toString()
+        return matchModel
     }
 }
