@@ -10,8 +10,10 @@ import com.example.lolstatistic.match.details.MatchModel
 interface MatchDao {
 
     @Query("SELECT * FROM `match`WHERE gameId=:id")
-    fun getById(id: String): MatchModel?
+  suspend  fun getById(id: String): MatchModelForDataBase?
 
     @Insert
-    fun addData(MMFDB:MatchModelForDataBase)
+    suspend fun addData(MMFDB:MatchModelForDataBase)
+
+
 }

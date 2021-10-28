@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 class MatchModelForDataBase {
     var gameMode: String? = null
     @PrimaryKey
-    var gameId: String? = null
-    var participant0:String?=null
+    var gameId: String = ""
+   /* var participant0:String?=null
     var participant1:String?=null
     var participant2:String?=null
     var participant3:String?=null
@@ -107,5 +107,5 @@ class MatchModelForDataBase {
     var lane9: String? = null
     var dragonKills9: String? = null
     var doubleKills9: String? = null
-    var puuid9: String? = null
+    var puuid9: String? = null*/
 }

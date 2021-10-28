@@ -53,19 +53,21 @@ class MatchStatisticsUseCase(
         return matchList
     }
 
-    fun writingDataToTheDatabase(list: MutableList<MatchModel>) {
+    suspend fun writingDataToTheDatabase(list: MutableList<MatchModel>) {
         val matchBase = MatchModelForDataBase()
         list.forEach {
-            matchBase.gameId = it.info?.gameId
-            matchBase.gameMode = it.info?.gameMode
-            mdb.addData(matchBase)
+            if (readFromDataBase(it.info?.gameId.toString()).info?.gameMode == "null"){
+                matchBase.gameId = it.info?.gameId.toString()
+                matchBase.gameMode = it.info?.gameMode
+                mdb.addData(matchBase)
+            }
         }
     }
 
-    fun readFromDataBase(id: String): MatchModel {
+    suspend fun readFromDataBase(id: String): MatchModel {
         val matchModel = MatchModel()
-        matchModel.info?.gameMode = mdb.getById(id)?.info?.gameMode.toString()
-        matchModel.info?.gameId = mdb.getById(id)?.info?.gameId.toString()
+        matchModel.info?.gameMode = mdb.getById(id)?.gameMode.toString()
+        matchModel.info?.gameId = mdb.getById(id)?.gameId.toString()
         return matchModel
     }
 }

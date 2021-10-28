@@ -22,6 +22,7 @@ class MatchItemAdapter(
         val gameMode: TextView = itemView.game_mode
         val status: TextView = itemView.win_lose
         val positionItem: TextView = itemView.position
+        val matchId:TextView=itemView.count_of_match_id
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -34,6 +35,7 @@ class MatchItemAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val match = getItem(position)
+        holder.matchId.text=match.info?.gameId.toString()
         holder.positionItem.text = (position + 1).toString()
         holder.kills.text =
             (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.kills.toString())

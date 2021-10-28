@@ -17,4 +17,5 @@
     <string name="line">Линия:</string>
     <string name="count_kill_of_dragon">Количесто убийств драконов:</string>
     <string name="count_of_double_kills">Количесто двойных убийств:</string>
+    <string name="id">ID</string>
 </resources>
