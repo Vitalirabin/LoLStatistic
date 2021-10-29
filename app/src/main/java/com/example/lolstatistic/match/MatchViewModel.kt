@@ -20,8 +20,10 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
             return
         viewModelScope.launch {
             isLoading = true
+            matchStatisticsUseCase.writingDataToTheDatabase(matchStatisticsUseCase.getMatchList(name, 0))
             listOfMatch.value = matchStatisticsUseCase.getMatchList(name, 0)
             isLoading = false
+
         }
         return
     }

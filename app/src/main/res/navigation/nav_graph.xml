@@ -19,7 +19,8 @@
         android:label="EnterFragment">
         <action
             android:id="@+id/action_enterFragment_to_matchListFragment"
-            app:destination="@id/matchListFragment" />
+            app:destination="@id/matchListFragment"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -29,9 +30,7 @@
             android:id="@+id/action_splashFragment_to_enterFragment2"
             app:destination="@id/enterFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_in_left"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -45,7 +44,8 @@
         android:label="MatchListFragment">
         <action
             android:id="@+id/action_matchListFragment_to_matchFragment"
-            app:destination="@id/matchFragment" />
+            app:destination="@id/matchFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
         <argument
             android:name="name"
             android:defaultValue="noName"
