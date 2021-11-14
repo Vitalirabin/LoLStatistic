@@ -1,5 +1,6 @@
 package com.example.lolstatistic
 
+import android.util.Log
 import com.example.lolstatistic.account.AccountModel
 import com.example.lolstatistic.account.AccountRepository
 import com.example.lolstatistic.account.AccountUseCase
@@ -16,8 +17,7 @@ class MatchStatisticsUseCase(
     val accountUseCase = AccountUseCase(accountRepository)
     var accountModel: AccountModel? = null
     var match: MatchModel? = null
-    var mdb = db.matchesDao
-
+    var matchDao = db.matchesDao
     suspend fun getPuuid(name: String): String? {
         accountModel = accountUseCase.loadAccount(name)
         return accountModel?.puuid
@@ -28,16 +28,20 @@ class MatchStatisticsUseCase(
     }
 
     suspend fun loadMatch(matchId: String): MatchModel? {
-        return matchRepository.getMatchByMatchId(
-            String.format(
-                "https://europe.api.riotgames.com/lol/match/v5/matches/%s",
-                matchId
-            )
-        ).data
+        Log.d("MatchStatisticsUseCase", "loadMatch")
+        if (readFromDataBase(matchId).info.gameId == null) {
+            val match = matchRepository.getMatchByMatchId(
+                String.format(
+                    "https://europe.api.riotgames.com/lol/match/v5/matches/%s",
+                    matchId
+                )
+            ).data
+            writingMatchToTheDataBase(match ?: MatchModel())
+            return match
+        } else return readFromDataBase(matchId)
     }
 
-    suspend fun getMatchList(name: String, startMatch: Int): MutableList<MatchModel> {
-        val matchList = mutableListOf<MatchModel>()
+    suspend fun getMatchList(name: String, startMatch: Int) {
         var matchIdList = listOf<String>()
         matchIdList = loadMatchList(
             String.format(
@@ -45,29 +49,39 @@ class MatchStatisticsUseCase(
                 getPuuid(name).toString(), startMatch.toString()
             )
         )
-        matchIdList.forEach {
-            if (readFromDataBase(it).info?.gameMode != null) {
-                matchList.add(readFromDataBase(it))
-            } else matchList.add(loadMatch(it) ?: MatchModel())
-        }
-        return matchList
+        Log.d("MatchStatisticsUseCase", "getMatchList")
+        writingDataToTheDatabase(matchIdList)
     }
 
-    suspend fun writingDataToTheDatabase(list: MutableList<MatchModel>) {
-        val matchBase = MatchModelForDataBase()
+    suspend fun writingDataToTheDatabase(list: List<String>) {
+        Log.d("MatchStatisticsUseCase", "writingDataToTheDatabase")
         list.forEach {
-            if (readFromDataBase(it.info?.gameId.toString()).info?.gameMode == "null"){
-                matchBase.gameId = it.info?.gameId.toString()
-                matchBase.gameMode = it.info?.gameMode
-                mdb.addData(matchBase)
+            val mode = matchDao.getById(it)?.gameMode
+            if (mode == null) {
+                loadMatch(it)
             }
         }
     }
 
+    suspend fun writingMatchToTheDataBase(match: MatchModel) {
+        Log.d("MatchStatisticsUseCase", "writingMatchToTheDataBase")
+        val matchBase = MatchModelForDataBase()
+        matchBase.matchId = match.metadata.matchId.toString()
+        matchBase.gameMode = match.info.gameMode
+        matchDao.addData(matchBase)
+    }
+
+    suspend fun getAllMatchFromDataBase(): List<MatchModelForDataBase> {
+       Log.d("MatchStatisticsUseCase", "matchDao.getAllMatch()")
+        return matchDao.getAllMatch()
+    }
+
     suspend fun readFromDataBase(id: String): MatchModel {
         val matchModel = MatchModel()
-        matchModel.info?.gameMode = mdb.getById(id)?.gameMode.toString()
-        matchModel.info?.gameId = mdb.getById(id)?.gameId.toString()
+        val matchData: MatchModelForDataBase?
+        matchData = matchDao.getById(id)
+        matchModel.info.gameMode = matchData?.gameMode.toString()
+        matchModel.metadata.matchId = matchData?.matchId.toString()
         return matchModel
     }
 }

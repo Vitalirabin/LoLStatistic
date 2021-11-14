@@ -35,7 +35,7 @@ class MatchItemAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val match = getItem(position)
-        holder.matchId.text=match.info?.gameId.toString()
+        holder.matchId.text=match.metadata?.matchId.toString()
         holder.positionItem.text = (position + 1).toString()
         holder.kills.text =
             (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.kills.toString())

@@ -49,7 +49,7 @@ class MatchListFragment : BaseFragment() {
             adapter.submitList(it)
             addOnScrollListener(name)
         })
-        matchViewModel.loadMatchList(name)
+        matchViewModel.updateList(name)
     }
 
     private fun addOnScrollListener(name: String) {

@@ -38,15 +38,5 @@ val matchViewModule = module(override = true) {
     viewModel { MatchViewModel(get()) }
 }
 val matchDataBaseModule = module(override = true) {
-    fun provideDataBase(application: Application): MatchDataBase {
-        return Room.databaseBuilder(application, MatchDataBase::class.java, MATCH_DATA_BASE)
-            .fallbackToDestructiveMigration()
-            .build()
-    }
-
-    fun provideDao(dataBase: MatchDataBase): MatchDao {
-        return dataBase.matchesDao
-    }
-    single { provideDataBase(androidApplication()) }
-    single { provideDao(get()) }
+single {  Room.databaseBuilder(androidApplication(), MatchDataBase::class.java,"DB").allowMainThreadQueries().build() }
 }
