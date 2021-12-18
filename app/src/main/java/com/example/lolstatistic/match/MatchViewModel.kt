@@ -24,10 +24,10 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
             return
         viewModelScope.launch {
             isLoading = true
-            val matchList = getAllMatchesFromDB()
+            val matchList = matchStatisticsUseCase.getAllMatchFromDataBase()
             if (matchList.size <= listOfMatch.value?.size ?: 1)
                 matchStatisticsUseCase.getMatchList(name, listOfMatch.value?.size ?: 0)
-            listOfMatch.value = getAllMatchesFromDB()
+            listOfMatch.value = matchStatisticsUseCase.getAllMatchFromDataBase()
             isLoading = false
         }
     }
@@ -42,16 +42,5 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
             participant.value = match.value?.info?.participants?.get(index ?: 0)
         }
 
-    }
-
-    suspend fun getAllMatchesFromDB(): MutableList<MatchModel> {
-        val matchList = mutableListOf<MatchModel>()
-        matchStatisticsUseCase.getAllMatchFromDataBase().forEach {
-            val matchModel = MatchModel()
-            matchModel.info.gameMode = it.gameMode.toString()
-            matchModel.metadata.matchId = it.matchId
-            matchList.add(matchModel)
-        }
-        return matchList
     }
 }

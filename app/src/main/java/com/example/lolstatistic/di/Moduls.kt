@@ -19,7 +19,7 @@ import org.koin.dsl.module
 
 val matchRepoModule = module(override = true) {
     single { ApiFactory.getApi() }
-    single { MatchRepository(get()) }
+    single { MatchRepository(get(), get()) }
 }
 val accountRepoModule = module(override = true) {
     single { ApiFactory.getApi() }
@@ -29,7 +29,7 @@ val enterViewModule = module(override = true) {
     viewModel { EnterViewModel() }
 }
 val matchUseCase = module(override = true) {
-    single { MatchStatisticsUseCase(get(), get(), get()) }
+    single { MatchStatisticsUseCase(get(), get()) }
 }
 val accountUseCase = module(override = true) {
     single { AccountUseCase(get()) }
