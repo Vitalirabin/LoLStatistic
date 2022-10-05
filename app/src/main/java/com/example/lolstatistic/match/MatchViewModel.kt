@@ -14,11 +14,11 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
     val match = MutableLiveData<MatchModel>()
     val participant = MutableLiveData<Participant>()
     var isLoading = MutableLiveData<Boolean>()
-    var puuid=""
+    var puuid = ""
 
-    fun getPuuidByAccount():String{
-        if (puuid=="")
-        puuid=matchStatisticsUseCase.accountModel?.puuid.toString()
+    fun getPuuidByAccount(name: String): String {
+        if (puuid == "")
+            viewModelScope.launch { puuid = matchStatisticsUseCase.getPuuid(name).toString() }
         return puuid
     }
 
@@ -27,10 +27,10 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
             return
         viewModelScope.launch {
             isLoading.value = true
-            val matchList = matchStatisticsUseCase.getAllMatchFromDataBase(getPuuidByAccount())
+            val matchList = matchStatisticsUseCase.getAllMatchFromDataBase(puuid)
             if (matchList.size <= listOfMatch.value?.size ?: 1)
                 matchStatisticsUseCase.getMatchList(name, listOfMatch.value?.size ?: 0)
-            listOfMatch.value = matchStatisticsUseCase.getAllMatchFromDataBase(getPuuidByAccount())
+            listOfMatch.value = matchStatisticsUseCase.getAllMatchFromDataBase(puuid)
             isLoading.value = false
         }
     }
@@ -40,7 +40,7 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
             match.value = matchStatisticsUseCase.loadMatch(id)
             match.value = match.value
             val index = match.value?.metadata?.participants?.indexOf(
-                getPuuidByAccount()
+                puuid
             )
             participant.value = match.value?.info?.participants?.get(index ?: 0)
         }
