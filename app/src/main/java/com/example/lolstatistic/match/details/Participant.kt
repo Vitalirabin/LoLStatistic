@@ -2,12 +2,12 @@ package com.example.lolstatistic.match.details
 
 class Participant {
     var win: Boolean = true
-    val kills: Int? = null
-    val assists: Int? = null
-    val deaths: Int? = null
-    val championName: String? = null
-    val lane: String? = null
-    val dragonKills: String? = null
-    val doubleKills: String? = null
-    val puuid: String? = null
+    var kills: Int? = null
+    var assists: Int? = null
+    var deaths: Int? = null
+    var championName: String? = null
+    var lane: String? = null
+    var dragonKills: String? = null
+    var doubleKills: String? = null
+    var puuid: String? = null
 }

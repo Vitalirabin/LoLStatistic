@@ -5,11 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.lolstatistic.BaseFragment
 import com.example.lolstatistic.R
 import com.example.lolstatistic.match.MatchViewModel
@@ -22,6 +22,7 @@ class MatchListFragment : BaseFragment() {
     private val matchViewModel: MatchViewModel by viewModel()
     private lateinit var adapter: MatchItemAdapter
     override fun getLayoutId(): Int = R.layout.fragment_match_list
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,12 +33,22 @@ class MatchListFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val name = MatchListFragmentArgs.fromBundle(requireArguments()).name
+        val name=MatchListFragmentArgs.fromBundle(requireArguments()).name
+        progressBar = view.findViewById(R.id.progress_bar) as ProgressBar
+        matchViewModel.isLoading.value = false
+        matchViewModel.getPuuidByAccount()
+        matchViewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                progressBar.visibility = ProgressBar.VISIBLE
+            } else {
+                progressBar.visibility = ProgressBar.INVISIBLE
+            }
+        })
         initList(name)
         matchViewModel.listOfMatch.observe(viewLifecycleOwner, Observer {
             if (!::adapter.isInitialized) {
                 adapter = MatchItemAdapter(
-                    matchViewModel.getPuuid(),
+                    matchViewModel.getPuuidByAccount(),
                     object : ItemOnClickListener {
                         override fun onClick(match: MatchModel?) {
                             click(match)
@@ -50,6 +61,8 @@ class MatchListFragment : BaseFragment() {
             addOnScrollListener(name)
         })
         matchViewModel.updateList(name)
+        progressBar.visibility = ProgressBar.INVISIBLE
+        match_list.visibility = RecyclerView.VISIBLE
     }
 
     private fun addOnScrollListener(name: String) {
@@ -65,7 +78,7 @@ class MatchListFragment : BaseFragment() {
     }
 
     fun click(match: MatchModel?) {
-        Log.d("MatchListActivity", "RU_${match?.info?.gameId.toString()}")
+        Log.d("MatchListFragment", "RU_${match?.info?.gameId.toString()}")
         val action = MatchListFragmentDirections.actionMatchListFragmentToMatchFragment()
         action.id = "RU_${match?.info?.gameId.toString()}"
         view?.let { Navigation.findNavController(it).navigate(action) }

@@ -10,16 +10,12 @@ import com.example.lolstatistic.BaseFragment
 import com.example.lolstatistic.MainActivity
 import com.example.lolstatistic.R
 import com.example.lolstatistic.databinding.FragmentEnterNameBinding
-import kotlinx.android.synthetic.main.fragment_enter_name.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.*
 
 class EnterFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_enter_name
 
     private val enterViewModel: EnterViewModel by viewModel()
-
-    var name = view?.findViewById<EditText>(R.id.name_of_account)?.text.toString()
 
     private var _binding: FragmentEnterNameBinding? = null
     private val binding get() = _binding!!
@@ -44,7 +40,7 @@ class EnterFragment : BaseFragment() {
                 return@setOnClickListener
             }
             val action = EnterFragmentDirections.actionEnterFragmentToMatchListFragment()
-            action.name = name
+            action.name = binding.nameOfAccount.text.toString()
             Navigation.findNavController(view).navigate(action)
         }
     }

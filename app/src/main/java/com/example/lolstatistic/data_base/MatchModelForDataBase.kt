@@ -8,6 +8,15 @@ class MatchModelForDataBase {
     var gameMode: String? = null
     @PrimaryKey
     var matchId: String = ""
+    var puuid0: String? = null
+    var win0: Boolean = true
+    var kills0: Int? = null
+    var assists0: Int? = null
+    var deaths0: Int? = null
+    var championName0: String? = null
+    var lane0: String? = null
+    var dragonKills0: String? = null
+    var doubleKills0: String? = null
    /* var participant0:String?=null
     var participant1:String?=null
     var participant2:String?=null
@@ -18,15 +27,6 @@ class MatchModelForDataBase {
     var participant7:String?=null
     var participant8:String?=null
     var participant9:String?=null
-    var win0: Boolean = true
-    var kills0: Int? = null
-    var assists0: Int? = null
-    var deaths0: Int? = null
-    var championName0: String? = null
-    var lane0: String? = null
-    var dragonKills0: String? = null
-    var doubleKills0: String? = null
-    var puuid0: String? = null
     var win1: Boolean = true
     var kills1: Int? = null
     var assists1: Int? = null

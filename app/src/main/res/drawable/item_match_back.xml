@@ -5,7 +5,7 @@
             >
             <shape>
                 <stroke
-                    android:color="@color/purple_700"
+                    android:color="@color/color_button"
                     android:width="3dp"/>
                 <corners
                     android:bottomLeftRadius="10dp"

@@ -4,5 +4,5 @@ object Constants {
     const val USER_NAME_VALUE="name"
     const val MATCH_ID_VALUE="id"
     const val MATCH_DATA_BASE="data"
-    const val TOKEN="RGAPI-fb4cdf8e-b3f9-455d-89db-e54b43ecbc58"
+    const val TOKEN="RGAPI-e5c0fe24-d23b-4d68-8541-d3cf4147f164"
 }
