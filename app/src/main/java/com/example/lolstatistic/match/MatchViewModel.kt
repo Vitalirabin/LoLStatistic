@@ -9,7 +9,7 @@ import com.example.lolstatistic.match.details.Participant
 import kotlinx.coroutines.launch
 
 
-class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
+class MatchViewModel(private val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
     var listOfMatch = MutableLiveData<MutableList<MatchModel>>()
     val match = MutableLiveData<MatchModel>()
     val participant = MutableLiveData<Participant>()
@@ -17,14 +17,17 @@ class MatchViewModel(val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewM
     var puuid = ""
 
     fun getPuuidByAccount(name: String): String {
+        isLoading.value = true
         if (puuid == "")
             viewModelScope.launch { puuid = matchStatisticsUseCase.getPuuid(name).toString() }
+        isLoading.value = false
         return puuid
     }
 
     fun updateList(name: String) {
-        if (isLoading.value!!)
+        if (isLoading.value!!) {
             return
+        }
         viewModelScope.launch {
             isLoading.value = true
             val matchList = matchStatisticsUseCase.getAllMatchFromDataBase(puuid)

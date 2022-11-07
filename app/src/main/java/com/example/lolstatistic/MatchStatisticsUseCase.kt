@@ -36,12 +36,12 @@ class MatchStatisticsUseCase(
         writingDataToTheDatabase(name, matchIdList)
     }
 
-    suspend fun writingDataToTheDatabase(name:String, list: List<String>) {
+    private suspend fun writingDataToTheDatabase(name: String, list: List<String>) {
         Log.d("MatchStatisticsUseCase", "writingDataToTheDatabase")
         list.forEach {
             val mode = matchRepository.getMatchByDB(it)?.gameMode
             if (mode == null) {
-                matchRepository.loadMatch(it, getPuuid(name)?:"")
+                matchRepository.loadMatch(it, getPuuid(name) ?: "")
             }
         }
     }
@@ -53,19 +53,19 @@ class MatchStatisticsUseCase(
             val matchModel = MatchModel()
             matchModel.info.gameMode = it.gameMode.toString()
             matchModel.metadata.matchId = it.matchId
-            val participant=Participant()
-            participant.deaths=it.deaths0
-            participant.assists=it.assists0
-            participant.kills=it.kills0
-            participant.win=it.win0
-            participant.puuid=it.puuid0
-            matchModel.info.participants= listOf(participant)
+            val participant = Participant()
+            participant.deaths = it.deaths0
+            participant.assists = it.assists0
+            participant.kills = it.kills0
+            participant.win = it.win0
+            participant.puuid = it.puuid0
+            matchModel.info.participants = listOf(participant)
             matchList.add(matchModel)
         }
         return matchList
     }
 
     suspend fun loadMatch(id: String): MatchModel? {
-        return matchRepository.loadMatch(accountModel?.puuid?:"",id)
+        return matchRepository.loadMatch(accountModel?.puuid ?: "", id)
     }
 }

@@ -13,14 +13,21 @@
     <dimen name="server_text_size">20sp</dimen>
     <dimen name="game_mode_text_size">25sp</dimen>
 
-    <dimen name="button_border_radius">6dp</dimen>
-    <dimen name="image_border_radius">6dp</dimen>
-    <dimen name="search_line_width">327dp</dimen>
-    <dimen name="suggest_partner_line_width">323dp</dimen>
-    <dimen name="search_line_height">26dp</dimen>
-    <dimen name="shop_category_line_height">36dp</dimen>
+    <dimen name="button_border_radius">8dp</dimen>
+    <dimen name="image_border_radius">8dp</dimen>
+    <dimen name="search_line_width">328dp</dimen>
+    <dimen name="suggest_partner_line_width">328dp</dimen>
+    <dimen name="search_line_height">24dp</dimen>
+    <dimen name="shop_category_line_height">32dp</dimen>
 
-    <dimen name="spinner_margin_top">50dp</dimen>
+    <dimen name="spinner_margin_top">56dp</dimen>
 
     <dimen name="recycler_view_marginBottom">100dp</dimen>
+
+
+    <dimen name="name_of_account_marginBottom">8dp</dimen>
+
+    <dimen name="enter_button_marginBottom">48dp</dimen>
+
+
 </resources>

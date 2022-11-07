@@ -10,10 +10,13 @@ import com.example.lolstatistic.R
 import com.example.lolstatistic.match.details.MatchModel
 import kotlinx.android.synthetic.main.item_match.view.*
 
+val diffCallback = MatchDiffUtil()
+
 class MatchItemAdapter(
     val puuid: String?,
     val onClickListener: ItemOnClickListener
 ) : ListAdapter<MatchModel, MatchItemAdapter.MyViewHolder>(diffCallback) {
+
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val kills: TextView = itemView.match_count_of_kills
@@ -22,7 +25,30 @@ class MatchItemAdapter(
         val gameMode: TextView = itemView.game_mode
         val status: TextView = itemView.win_lose
         val positionItem: TextView = itemView.position
-        val matchId:TextView=itemView.count_of_match_id
+        val matchId: TextView = itemView.count_of_match_id
+
+        fun bind(
+            match: MatchModel,
+            onClickListener: ItemOnClickListener,
+            puuid: String?
+        ) {
+            this.matchId.text = match.metadata?.matchId.toString()
+            this.positionItem.text = (position + 1).toString()
+            this.kills.text =
+                (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.kills.toString())
+            this.assists.text =
+                (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.assists.toString())
+            this.deaths.text =
+                (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.deaths.toString())
+            this.gameMode.text = match?.info?.gameMode
+            if ((match?.info?.participants?.firstOrNull { it.puuid == puuid }?.win == true)
+            ) {
+                this.status.text = "Победа"
+            } else this.status.text = "Поражение"
+            this.itemView.setOnClickListener {
+                onClickListener.onClick(match)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -35,25 +61,6 @@ class MatchItemAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val match = getItem(position)
-        holder.matchId.text=match.metadata?.matchId.toString()
-        holder.positionItem.text = (position + 1).toString()
-        holder.kills.text =
-            (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.kills.toString())
-        holder.assists.text =
-            (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.assists.toString())
-        holder.deaths.text =
-            (match?.info?.participants?.firstOrNull { it.puuid == puuid }?.deaths.toString())
-        holder.gameMode.text = match?.info?.gameMode
-        if ((match?.info?.participants?.firstOrNull { it.puuid == puuid }?.win == true)
-        ) {
-            holder.status.text = "Победа"
-        } else holder.status.text = "Поражение"
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(match)
-        }
-    }
-
-    companion object {
-        val diffCallback = MatchDiffUtil()
+        holder.bind(match, onClickListener, puuid)
     }
 }

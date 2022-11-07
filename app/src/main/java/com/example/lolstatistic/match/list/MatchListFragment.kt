@@ -33,9 +33,8 @@ class MatchListFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val name=MatchListFragmentArgs.fromBundle(requireArguments()).name
+        val name = MatchListFragmentArgs.fromBundle(requireArguments()).name
         progressBar = view.findViewById(R.id.progress_bar) as ProgressBar
-        matchViewModel.isLoading.value = false
         matchViewModel.getPuuidByAccount(name)
         matchViewModel.isLoading.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -44,7 +43,6 @@ class MatchListFragment : BaseFragment() {
                 progressBar.visibility = ProgressBar.INVISIBLE
             }
         })
-        initList(name)
         matchViewModel.listOfMatch.observe(viewLifecycleOwner, Observer {
             if (!::adapter.isInitialized) {
                 adapter = MatchItemAdapter(
@@ -81,29 +79,4 @@ class MatchListFragment : BaseFragment() {
         action.id = "RU_${match?.info?.gameId.toString()}"
         view?.let { Navigation.findNavController(it).navigate(action) }
     }
-
-    private fun initList(name: String) {
-    }
-    //tgo
-    /*   private fun addSwiped(adapter: MatchItemAdapter) {
-        addOnScrollListener(name)
-           val itemTouchCallback = object :
-               ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-               override fun onMove(
-                   recyclerView: RecyclerView,
-                   viewHolder: RecyclerView.ViewHolder,
-                   viewHolder1: RecyclerView.ViewHolder
-               ): Boolean {
-                   return false
-               }
-
-               override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                   val position = viewHolder.adapterPosition
-                   match_list.removeItemDecorationAt(position)
-                   adapter.notifyItemRemoved(position)
-               }
-           }
-           val itemTouchHelper = ItemTouchHelper(itemTouchCallback)
-           itemTouchHelper.attachToRecyclerView(match_list)
-       }*/
 }
