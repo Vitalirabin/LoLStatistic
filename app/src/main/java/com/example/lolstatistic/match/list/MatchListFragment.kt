@@ -70,6 +70,7 @@ class MatchListFragment : BaseFragment() {
                 if (totalItemCount < (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() + 4) {
                     matchViewModel.updateList(name)
                 }
+
             }
         })
     }
