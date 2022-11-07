@@ -84,6 +84,7 @@ class MatchListFragment : BaseFragment() {
 
     private fun initList(name: String) {
     }
+    //tgo
     /*   private fun addSwiped(adapter: MatchItemAdapter) {
         addOnScrollListener(name)
            val itemTouchCallback = object :
