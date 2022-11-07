@@ -56,6 +56,7 @@ class MatchListFragment : BaseFragment() {
                 match_list.adapter = adapter
             }
             adapter.submitList(it)
+            adapter.notifyDataSetChanged()
             addOnScrollListener(name)
         })
         matchViewModel.updateList(name)
