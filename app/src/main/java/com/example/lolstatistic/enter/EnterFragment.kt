@@ -13,7 +13,7 @@ import com.example.lolstatistic.databinding.FragmentEnterNameBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class EnterFragment : BaseFragment() {
-    override fun getLayoutId(): Int = R.layout.fragment_enter_name
+    override fun getLayoutId(): Int = binding.root.id
 
     private val enterViewModel: EnterViewModel by viewModel()
 
