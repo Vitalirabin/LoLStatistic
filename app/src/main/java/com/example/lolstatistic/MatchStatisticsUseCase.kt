@@ -4,9 +4,12 @@ import android.util.Log
 import com.example.lolstatistic.account.AccountModel
 import com.example.lolstatistic.account.AccountRepository
 import com.example.lolstatistic.account.AccountUseCase
+import com.example.lolstatistic.data_base.MatchModelForDataBase
 import com.example.lolstatistic.match.MatchRepository
 import com.example.lolstatistic.match.details.MatchModel
 import com.example.lolstatistic.match.details.Participant
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MatchStatisticsUseCase(
     accountRepository: AccountRepository,
@@ -46,10 +49,14 @@ class MatchStatisticsUseCase(
         }
     }
 
-    suspend fun getAllMatchFromDataBase(puuid: String): MutableList<MatchModel> {
+    suspend fun getAllMatchFromDataBase(): MutableList<MatchModel> {
         Log.d("MatchStatisticsUseCase", "matchDao.getAllMatch()")
         val matchList = mutableListOf<MatchModel>()
-        matchRepository.getAllMatchFromDB().forEach {
+        var matchListFromDB = listOf<MatchModelForDataBase>()
+        withContext(Dispatchers.IO) {
+            matchListFromDB = matchRepository.getAllMatchFromDB()
+        }
+        matchListFromDB.forEach {
             val matchModel = MatchModel()
             matchModel.info.gameMode = it.gameMode.toString()
             matchModel.metadata.matchId = it.matchId
@@ -66,6 +73,6 @@ class MatchStatisticsUseCase(
     }
 
     suspend fun loadMatch(id: String): MatchModel? {
-        return matchRepository.loadMatch(accountModel?.puuid ?: "", id)
+        return matchRepository.loadMatch(id, accountModel?.puuid ?: "")
     }
 }

@@ -23,6 +23,7 @@ class MatchListFragment : BaseFragment() {
     private lateinit var adapter: MatchItemAdapter
     override fun getLayoutId(): Int = R.layout.fragment_match_list
     private lateinit var progressBar: ProgressBar
+    private lateinit var name: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +34,7 @@ class MatchListFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val name = MatchListFragmentArgs.fromBundle(requireArguments()).name
+        name = MatchListFragmentArgs.fromBundle(requireArguments()).name
         progressBar = view.findViewById(R.id.progress_bar) as ProgressBar
         matchViewModel.getPuuidByAccount(name)
         matchViewModel.isLoading.observe(viewLifecycleOwner, Observer {
@@ -56,7 +57,6 @@ class MatchListFragment : BaseFragment() {
                 match_list.adapter = adapter
             }
             adapter.submitList(it)
-            adapter.notifyDataSetChanged()
             addOnScrollListener(name)
         })
         matchViewModel.updateList(name)
@@ -70,15 +70,15 @@ class MatchListFragment : BaseFragment() {
                 if (totalItemCount < (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() + 4) {
                     matchViewModel.updateList(name)
                 }
-
             }
         })
     }
 
     fun click(match: MatchModel?) {
-        Log.d("MatchListFragment", "RU_${match?.info?.gameId.toString()}")
+        Log.d("MatchListFragment", match?.metadata?.matchId.toString())
         val action = MatchListFragmentDirections.actionMatchListFragmentToMatchFragment()
-        action.id = "RU_${match?.info?.gameId.toString()}"
+        action.id = match?.metadata?.matchId.toString()
+        action.puuid = matchViewModel.getPuuidByAccount(name)
         view?.let { Navigation.findNavController(it).navigate(action) }
     }
 }

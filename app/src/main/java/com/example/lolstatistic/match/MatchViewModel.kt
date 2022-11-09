@@ -30,15 +30,15 @@ class MatchViewModel(private val matchStatisticsUseCase: MatchStatisticsUseCase)
         }
         viewModelScope.launch {
             isLoading.value = true
-            val matchList = matchStatisticsUseCase.getAllMatchFromDataBase(puuid)
+            val matchList = matchStatisticsUseCase.getAllMatchFromDataBase()
             if (matchList.size <= listOfMatch.value?.size ?: 1)
                 matchStatisticsUseCase.getMatchList(name, listOfMatch.value?.size ?: 0)
-            listOfMatch.value = matchStatisticsUseCase.getAllMatchFromDataBase(puuid)
+            listOfMatch.value = matchStatisticsUseCase.getAllMatchFromDataBase()
             isLoading.value = false
         }
     }
 
-    fun getParticipant(id: String) {
+    fun getParticipant(puuid: String, id: String) {
         viewModelScope.launch {
             match.value = matchStatisticsUseCase.loadMatch(id)
             match.value = match.value
@@ -47,6 +47,5 @@ class MatchViewModel(private val matchStatisticsUseCase: MatchStatisticsUseCase)
             )
             participant.value = match.value?.info?.participants?.get(index ?: 0)
         }
-
     }
 }

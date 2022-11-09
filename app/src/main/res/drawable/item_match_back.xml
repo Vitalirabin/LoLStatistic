@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <inset android:insetLeft="-1dp"
+        <inset android:insetLeft="0dp"
             >
             <shape>
                 <stroke
                     android:color="@color/color_button"
-                    android:width="3dp"/>
+                    android:width="10dp"/>
                 <corners
-                    android:bottomLeftRadius="10dp"
-                    android:bottomRightRadius="10dp"
-                    android:topLeftRadius="10dp"
-                    android:topRightRadius="10dp"
+                    android:bottomLeftRadius="@dimen/item_match_background_border_radius"
+                    android:bottomRightRadius="@dimen/item_match_background_border_radius"
+                    android:topLeftRadius="@dimen/item_match_background_border_radius"
+                    android:topRightRadius="@dimen/item_match_background_border_radius"
                     />
             </shape>
         </inset>
     </item>
     <item
-        android:top="3dp"
-        android:right="3dp"
-        android:bottom="3dp"
-        android:left="3dp">
+        android:top="@dimen/item_match_background_border"
+        android:right="@dimen/item_match_background_border_radius"
+        android:bottom="@dimen/item_match_background_border"
+        android:left="@dimen/item_match_background_border_radius">
         <shape>
             <solid android:color="@color/color_match_item"/>
             <corners
-                android:bottomLeftRadius="10dp"
-                android:bottomRightRadius="10dp"
-                android:topLeftRadius="10dp"
-                android:topRightRadius="10dp"
+                android:bottomLeftRadius="@dimen/item_match_background_border_radius"
+                android:bottomRightRadius="@dimen/item_match_background_border_radius"
+                android:topLeftRadius="@dimen/item_match_background_border_radius"
+                android:topRightRadius="@dimen/item_match_background_border_radius"
                 />
         </shape>
     </item>

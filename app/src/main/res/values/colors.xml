@@ -7,9 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="color_button">#FF6D00</color>
+    <color name="color_button">#FF018786</color>
     <color name="color_match_list">#56FFFFFF</color>
-    <color name="color_kills">#FF0000</color>
-    <color name="color_assists">#FFFF00</color>
-    <color name="color_match_item">#50FF6D00</color>
+    <color name="color_kills">#FF000000</color>
+    <color name="color_assists">#FF000000</color>
+    <color name="color_match_item">#FF03DAC5</color>
 </resources>

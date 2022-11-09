@@ -10,6 +10,7 @@ import com.example.lolstatistic.R
 import com.example.lolstatistic.databinding.FragmentMatchStatisticBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 import android.util.Log
+import com.example.lolstatistic.Constants.PUUID
 import com.example.lolstatistic.databinding.FragmentMatchStatisticBindingImpl
 import com.example.lolstatistic.match.MatchViewModel
 
@@ -28,8 +29,9 @@ class MatchFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         val id =this.arguments?.getString(MATCH_ID_VALUE).toString()
+        val puuid =this.arguments?.getString(PUUID).toString()
         Log.d("MatchFragment", id)
-        matchViewModel.getParticipant(id)
+        matchViewModel.getParticipant(puuid,id)
         _binding = FragmentMatchStatisticBindingImpl.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.matchViewModel = matchViewModel

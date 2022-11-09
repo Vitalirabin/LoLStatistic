@@ -12,6 +12,14 @@
             android:name="id"
             android:defaultValue="0"
             app:argType="string" />
+        <argument
+            android:name="puuid"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+        <action
+            android:id="@+id/action_matchFragment_to_matchListFragment"
+            app:destination="@id/matchListFragment" />
     </fragment>
     <fragment
         android:id="@+id/enterFragment"

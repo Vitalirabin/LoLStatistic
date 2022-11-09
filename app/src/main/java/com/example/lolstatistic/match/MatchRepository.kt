@@ -43,8 +43,8 @@ class MatchRepository(private var api: RemoteApi, db: MatchDataBase) {
     }
 
     suspend fun loadMatch(matchId: String, puuid: String): MatchModel? {
-        Log.d("MatchStatisticsUseCase", "loadMatch")
-        if (readFromDataBase(matchId, puuid).info.gameId == null) {
+        Log.d("MatchRepository", "loadMatch")
+        if (readFromDataBase(matchId, puuid).metadata.matchId == null) {
             val match = getMatchByMatchId(
                 String.format(
                     "https://europe.api.riotgames.com/lol/match/v5/matches/%s",
@@ -56,30 +56,32 @@ class MatchRepository(private var api: RemoteApi, db: MatchDataBase) {
         } else return readFromDataBase(matchId, puuid)
     }
 
-    suspend fun writingMatchToTheDataBase(puuid: String, match: MatchModel) {
+    private suspend fun writingMatchToTheDataBase(puuid: String, match: MatchModel) {
         Log.d("MatchStatisticsUseCase", "writingMatchToTheDataBase")
         val matchBase = MatchModelForDataBase()
-        matchBase.matchId = match.metadata.matchId.toString()
-        matchBase.gameMode = match.info.gameMode
-        matchBase.puuid0 = puuid
-        matchBase.assists0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.assists
-        matchBase.deaths0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.deaths
-        matchBase.kills0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.kills
-        matchBase.win0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.win ?: true
-        matchDao.addData(matchBase)
+        if (readFromDataBase(match.metadata.matchId.toString(), puuid).info.gameId == null) {
+            matchBase.matchId = match.metadata.matchId.toString()
+            matchBase.gameMode = match.info.gameMode
+            matchBase.puuid0 = puuid
+            matchBase.assists0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.assists
+            matchBase.deaths0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.deaths
+            matchBase.kills0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.kills
+            matchBase.win0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.win ?: true
+            matchDao.addData(matchBase)
+        } else return
     }
 
-    suspend fun readFromDataBase(id: String, puuid: String): MatchModel {
+    private suspend fun readFromDataBase(id: String, puuid: String): MatchModel {
         val matchModel = MatchModel()
         val matchData: MatchModelForDataBase?
         matchData = matchDao.getById(id)
         matchModel.info.gameMode = matchData?.gameMode.toString()
         matchModel.metadata.matchId = matchData?.matchId.toString()
-        matchModel.info.participants?.firstOrNull { it.puuid == puuid }?.deaths = matchData?.deaths0
-        matchModel.info.participants?.firstOrNull { it.puuid == puuid }?.assists =
+        matchModel.info.participants?.get(0)?.deaths = matchData?.deaths0
+        matchModel.info.participants?.get(0)?.assists =
             matchData?.assists0
-        matchModel.info.participants?.firstOrNull { it.puuid == puuid }?.kills = matchData?.kills0
-        matchModel.info.participants?.firstOrNull { it.puuid == puuid }?.win =
+        matchModel.info.participants?.get(0)?.kills = matchData?.kills0
+        matchModel.info.participants?.get(0)?.win =
             matchData?.win0 ?: true
         return matchModel
     }
