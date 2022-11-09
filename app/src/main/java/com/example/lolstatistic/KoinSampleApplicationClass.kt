@@ -17,7 +17,7 @@ class KoinSampleApplicationClass : Application() {
                 listOf(
                     matchRepoModule, accountRepoModule,
                     enterViewModule, matchUseCase, accountUseCase,
-                    matchViewModule, matchDataBaseModule
+                    matchViewModule
                 )
             )
         }

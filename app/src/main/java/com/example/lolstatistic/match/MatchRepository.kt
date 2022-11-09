@@ -1,15 +1,12 @@
 package com.example.lolstatistic.match
 
 import android.util.Log
-import com.example.lolstatistic.data_base.MatchDataBase
-import com.example.lolstatistic.data_base.MatchModelForDataBase
 import com.example.lolstatistic.match.details.MatchModel
 import com.example.lolstatistic.network.ApiFactory
 import com.example.lolstatistic.network.ApiResponse
 import com.example.lolstatistic.network.RemoteApi
 
-class MatchRepository(private var api: RemoteApi, db: MatchDataBase) {
-    private var matchDao = db.matchesDao
+class MatchRepository(private var api: RemoteApi) {
     suspend fun getMatchListByPuuid(puuid: String): ApiResponse<List<String>> {
         return try {
             api = ApiFactory.getApi()
@@ -34,55 +31,14 @@ class MatchRepository(private var api: RemoteApi, db: MatchDataBase) {
         }
     }
 
-    suspend fun getMatchByDB(id: String): MatchModelForDataBase? {
-        return matchDao.getById(id)
-    }
-
-    suspend fun getAllMatchFromDB(): List<MatchModelForDataBase> {
-        return matchDao.getAllMatch()
-    }
-
-    suspend fun loadMatch(matchId: String, puuid: String): MatchModel? {
+    suspend fun loadMatch(matchId: String, puuid: String): MatchModel {
         Log.d("MatchRepository", "loadMatch")
-        if (readFromDataBase(matchId, puuid).metadata.matchId == null) {
-            val match = getMatchByMatchId(
-                String.format(
-                    "https://europe.api.riotgames.com/lol/match/v5/matches/%s",
-                    matchId
-                )
-            ).data
-            writingMatchToTheDataBase(puuid, match ?: MatchModel())
-            return match
-        } else return readFromDataBase(matchId, puuid)
-    }
-
-    private suspend fun writingMatchToTheDataBase(puuid: String, match: MatchModel) {
-        Log.d("MatchStatisticsUseCase", "writingMatchToTheDataBase")
-        val matchBase = MatchModelForDataBase()
-        if (readFromDataBase(match.metadata.matchId.toString(), puuid).info.gameId == null) {
-            matchBase.matchId = match.metadata.matchId.toString()
-            matchBase.gameMode = match.info.gameMode
-            matchBase.puuid0 = puuid
-            matchBase.assists0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.assists
-            matchBase.deaths0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.deaths
-            matchBase.kills0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.kills
-            matchBase.win0 = match.info.participants?.firstOrNull { it.puuid == puuid }?.win ?: true
-            matchDao.addData(matchBase)
-        } else return
-    }
-
-    private suspend fun readFromDataBase(id: String, puuid: String): MatchModel {
-        val matchModel = MatchModel()
-        val matchData: MatchModelForDataBase?
-        matchData = matchDao.getById(id)
-        matchModel.info.gameMode = matchData?.gameMode.toString()
-        matchModel.metadata.matchId = matchData?.matchId.toString()
-        matchModel.info.participants?.get(0)?.deaths = matchData?.deaths0
-        matchModel.info.participants?.get(0)?.assists =
-            matchData?.assists0
-        matchModel.info.participants?.get(0)?.kills = matchData?.kills0
-        matchModel.info.participants?.get(0)?.win =
-            matchData?.win0 ?: true
-        return matchModel
+        val match = getMatchByMatchId(
+            String.format(
+                "https://europe.api.riotgames.com/lol/match/v5/matches/%s",
+                matchId
+            )
+        ).data
+        return match ?: MatchModel()
     }
 }

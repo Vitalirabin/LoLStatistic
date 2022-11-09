@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="button_width">250dp</dimen>
+    <dimen name="button_width">256dp</dimen>
     <dimen name="button_height">42dp</dimen>
-    <dimen name="button_margin">50dp</dimen>
+    <dimen name="button_margin">56dp</dimen>
 
     <dimen name="enter_button_text_size">13sp</dimen>
     <dimen name="info_text_size">15sp</dimen>
@@ -25,12 +25,15 @@
 
     <dimen name="item_match_margin_top_and_start">8dp</dimen>
 
-    <dimen name="recycler_view_marginBottom">100dp</dimen>
+    <dimen name="recycler_view_marginBottom">104dp</dimen>
 
 
     <dimen name="name_of_account_marginBottom">8dp</dimen>
 
     <dimen name="fragment_match_statistic_margin">16dp</dimen>
+    <dimen name="fragment_match_statistic_margin_top">32dp</dimen>
+    <dimen name="fragment_match_statistic_name_game_champion_margin_top">56dp</dimen>
+    <dimen name="fragment_match_statistic_kills_deaths_assists_margin_top">104dp</dimen>
 
     <dimen name="enter_button_marginBottom">48dp</dimen>
 

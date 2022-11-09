@@ -20,7 +20,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MatchListFragment : BaseFragment() {
 
     private val matchViewModel: MatchViewModel by viewModel()
-    private lateinit var adapter: MatchItemAdapter
+    private var adapter: MatchItemAdapter? = null
     override fun getLayoutId(): Int = R.layout.fragment_match_list
     private lateinit var progressBar: ProgressBar
     private lateinit var name: String
@@ -44,8 +44,8 @@ class MatchListFragment : BaseFragment() {
                 progressBar.visibility = ProgressBar.INVISIBLE
             }
         })
-        matchViewModel.listOfMatch.observe(viewLifecycleOwner, Observer {
-            if (!::adapter.isInitialized) {
+        matchViewModel.liveDataListOfMatch.observe(viewLifecycleOwner, Observer {
+            if (adapter == null) {
                 adapter = MatchItemAdapter(
                     matchViewModel.puuid,
                     object : ItemOnClickListener {
@@ -56,10 +56,16 @@ class MatchListFragment : BaseFragment() {
                 )
                 match_list.adapter = adapter
             }
-            adapter.submitList(it)
+            adapter?.submitList(it)
             addOnScrollListener(name)
         })
-        matchViewModel.updateList(name)
+        if (matchViewModel.liveDataListOfMatch.value == null)
+            matchViewModel.updateList(name)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter = null
     }
 
     private fun addOnScrollListener(name: String) {
@@ -67,7 +73,7 @@ class MatchListFragment : BaseFragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val totalItemCount = recyclerView.layoutManager!!.itemCount
-                if (totalItemCount < (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() + 4) {
+                if (totalItemCount < (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition() + 2) {
                     matchViewModel.updateList(name)
                 }
             }

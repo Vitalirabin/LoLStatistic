@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 
 class MatchViewModel(private val matchStatisticsUseCase: MatchStatisticsUseCase) : ViewModel() {
-    var listOfMatch = MutableLiveData<MutableList<MatchModel>>()
+    var liveDataListOfMatch = MutableLiveData<MutableList<MatchModel?>>()
     val match = MutableLiveData<MatchModel>()
     val participant = MutableLiveData<Participant>()
     var isLoading = MutableLiveData<Boolean>()
@@ -30,10 +30,15 @@ class MatchViewModel(private val matchStatisticsUseCase: MatchStatisticsUseCase)
         }
         viewModelScope.launch {
             isLoading.value = true
-            val matchList = matchStatisticsUseCase.getAllMatchFromDataBase()
-            if (matchList.size <= listOfMatch.value?.size ?: 1)
-                matchStatisticsUseCase.getMatchList(name, listOfMatch.value?.size ?: 0)
-            listOfMatch.value = matchStatisticsUseCase.getAllMatchFromDataBase()
+            val listOfMatch = mutableListOf<MatchModel?>()
+            liveDataListOfMatch.value?.forEach {
+                listOfMatch.add(it)
+            }
+            matchStatisticsUseCase.getMatchList(
+                name,
+                liveDataListOfMatch.value?.size ?: 0
+            ).forEach { listOfMatch.add(it) }
+            liveDataListOfMatch.value = listOfMatch
             isLoading.value = false
         }
     }
