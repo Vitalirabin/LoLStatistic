@@ -19,7 +19,7 @@ class MatchRepository(private var api: RemoteApi) {
         }
     }
 
-    suspend fun getMatchByMatchId(matchId: String): ApiResponse<MatchModel> {
+    private suspend fun getMatchByMatchId(matchId: String): ApiResponse<MatchModel> {
         return try {
             api = ApiFactory.getApi()
             val result = api.getMatch(matchId)
